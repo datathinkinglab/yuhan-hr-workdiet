@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>유한양행 인사팀 워크다이어트 | AI로 초안을 만들고, 인사팀이 업무 흐름을 검증한다</title>
+<meta name="author" content="Data Thinking Lab">
+<link rel="preload" href="assets/Paperlogy-9Black.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== icon sprite ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-compare" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="16" rx="1.5"/><rect x="14" y="4" width="7" height="16" rx="1.5"/><path d="M5.5 9h2M5.5 13h2M16.5 9h2M16.5 13h2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-stamp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6v5l2 4H7l2-4z"/><path d="M5 15h14v3H5zM5 21h14"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.5 3.5-5.5 6.5-5.5s5.5 2 6.5 5.5"/><circle cx="17" cy="9" r="2.8"/><path d="M16 14.6c2.6-.2 4.6 1.5 5.5 4.4"/></symbol>
+  <symbol id="i-ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="12" rx="3"/><path d="M12 3v4M9 12h.01M15 12h.01M9.5 15.5h5M2.5 12v3M21.5 12v3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7M14 8.5v7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11M11 10V4.5a1.5 1.5 0 0 1 3 0V11M14 10.5V6a1.5 1.5 0 0 1 3 0v8c0 4-2.5 7-6.5 7-3 0-4.5-1.5-6-4l-2-3.5a1.5 1.5 0 0 1 2.6-1.5L8 14"/></symbol>
+  <symbol id="i-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4v4c0 3 3 4 7 6M19 4v4c0 3-3 4-7 6v6"/><path d="m9 17 3 3 3-3"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="1.5"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M4.2 6.2l2.1 2.1M17.7 15.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 17.8l2.1-2.1M17.7 8.3l2.1-2.1"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.6 4.4 2.6 6.4 7 7-4.4.6-6.4 2.6-7 7-.6-4.4-2.6-6.4-7-7 4.4-.6 6.4-2.6 7-7z"/><path d="M19 16c.3 1.6 1 2.3 2.5 2.5-1.5.3-2.2 1-2.5 2.5-.3-1.5-1-2.2-2.5-2.5 1.5-.2 2.2-.9 2.5-2.5z"/></symbol>
+  <symbol id="i-ucheck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c1-3.5 3.5-5.5 6.5-5.5 1.6 0 3 .5 4.2 1.4"/><path d="m15 18 2 2 4.5-4.5"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2.5h8.5A1.5 1.5 0 0 1 21 9v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></symbol>
+  <symbol id="i-app" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18M6 6.3h.01M8.5 6.3h.01M7 13h4M7 16h7M15 12.5l2 2-2 2"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
+  <symbol id="i-loop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16M8 3v3M12 3v3"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+ <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/></symbol>
+ </defs>
+</svg>
+
+<div id="viewport"><div id="stage">
+
+<!-- ================= 01 COVER ================= -->
+<section class="slide cover" data-no="01" data-mod="워크다이어트 과정" data-title="AI로 초안을 만들고, 인사팀이 업무 흐름을 검증한다" data-min="4"
+ data-note="최근 마감에서 '손이 많이 간 일'과 '회신을 기다린 일'을 하나씩 묻습니다. 두 유형의 답을 한 건씩 받은 뒤, 오늘 조별로 완성할 결과물 네 칸(AS-IS · 병목 근거 · TO-BE · 검증 계획)을 소개합니다.">
+ <canvas id="cv-net"></canvas>
+ <div class="cover-l">
+  <img class="logo in" style="--d:0" src="assets/logo.png" alt="Data Thinking Lab">
+  <div><span class="eyebrow in" style="--d:1">유한양행 인사팀 워크다이어트</span></div>
+  <h1 class="kin" data-kin>AI로 초안을 만들고, <br><span class="o">인사팀이</span> 업무 흐름을 <br>검증한다</h1>
+  <div class="cover-sub in" style="--d:8">조별 업무 1건 → 검증한 개선안 1장</div>
+  <div class="cover-meta in" style="--d:9"><span><b>대상</b>인사팀 11명 · 3개 조</span><span><b>시간</b>13:30 – 17:30</span><span><b>강사</b>이승묵 Ph.D</span></div>
+ </div>
+ <div class="cover-r">
+  <div class="card tilt in" style="--d:4"><span class="lbl">오늘의 결과물 — 조별 한 장</span><div class="row" style="justify-content:space-between"><div class="num">01</div><div class="ico b" style="width:56px;height:56px"><svg><use href="#i-list"/></svg></div></div><div><h3>AS-IS</h3><p>검증한 현재 흐름</p></div></div>
+  <div class="card tilt in" style="--d:5"><div class="row" style="justify-content:space-between"><div class="num">02</div><div class="ico y" style="width:56px;height:56px"><svg><use href="#i-search"/></svg></div></div><div><h3>병목 근거</h3><p>관찰과 원인 가설</p></div></div>
+  <div class="card tilt in" style="--d:6"><div class="row" style="justify-content:space-between"><div class="num">03</div><div class="ico g" style="width:56px;height:56px"><svg><use href="#i-ucheck"/></svg></div></div><div><h3>TO-BE</h3><p>사람의 확인 지점 포함</p></div></div>
+  <div class="card tilt orange in" style="--d:7"><div class="row" style="justify-content:space-between"><div class="num" style="color:#fff">04</div><div class="ico" style="width:56px;height:56px;background:#fff;color:#F26B1D"><svg><use href="#i-chart"/></svg></div></div><div><h3>검증 계획</h3><p>측정 지표와 담당</p></div></div>
+ </div>
+</section>
+
+<!-- ================= INSTRUCTOR ================= -->
+<section class="slide" data-no="" data-mod="강사 소개" data-title="강사 소개 — 이승묵 Ph.D"
+ data-note="AI·데이터 컨설팅과 교육 경력을 간단히 소개하고, 특히 한림제약 팀장 워크숍에서 진행한 '워크플로우 분석 → AI 과제 도출' 경험이 오늘 과정의 뼈대라는 점을 연결합니다.">
+ <div class="orb" style="width:180px;height:180px;right:120px;top:120px" data-depth="18"></div>
+ <div class="orb" style="width:70px;height:70px;left:60px;top:960px" data-depth="30"></div>
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2>강사 소개</h2></div>
+  <div class="body row" style="gap:56px;margin-top:10px">
+   <div class="ins-photo tilt in" style="--d:1;height:740px"><img src="assets/instructor-lee.jpg" alt="이승묵 강사 캐리커처"></div>
+   <div class="col grow" style="gap:18px">
+    <div class="in" style="--d:2">
+     <div class="ins-name">이승묵 <small>Ph.D</small></div>
+     <div class="ins-role">Data Thinking Lab 대표 컨설턴트 · AI·데이터 전략 컨설턴트 · AX 자문역</div>
+     <p style="font-size:27px;line-height:1.55;color:var(--sub)">통계학 박사로서 20년 이상 데이터사이언스·AI 실무를 해 왔고, 유통·금융·제조·바이오 기업의 <span class="mk">AX 전략과 데이터 기반 경영</span>을 컨설팅·자문하고 있습니다.</p>
+    </div>
+    <div class="row in" style="--d:3;gap:18px">
+     <div class="card stat tilt"><div class="n"><span data-count="21">0</span><small>개사</small></div><div class="d">컨설팅·자문 수행</div></div>
+     <div class="card stat tilt"><div class="n"><span data-count="20">0</span><small>년+</small></div><div class="d">데이터·AI 실무 경력</div></div>
+     <div class="card stat tilt"><div class="n"><span data-count="69">0</span><small>건</small></div><div class="d">기업·기관 강의</div></div>
+    </div>
+    <div class="row in" style="--d:4;gap:26px">
+     <ul class="car grow">
+      <li><b>現</b>Data Thinking Lab 대표 컨설턴트</li>
+      <li><b>現</b>미트박스글로벌 AX 컨설팅 자문역 (AI Advisor)</li>
+      <li><b>前</b>GS리테일 데이터사이언스부문장 (CDO/상무보)</li>
+      <li><b>前</b>지니너스 데이터사이언스센터장 (CIO/CDO)</li>
+      <li><b>前</b>현대카드 Team Leader · 삼성SDS 책임 컨설턴트</li>
+     </ul>
+    </div>
+    <div class="in" style="--d:5">
+     <span class="k">관련 강의 · 워크숍</span>
+     <div class="lect">
+      <span class="tag ora">한림제약 AI 기반 업무혁신 팀장 워크숍 (1~4차수)</span>
+      <span class="tag gray">한림제약 업무 워크플로우 분석 · Agent 개발</span>
+      <span class="tag gray">HD현대그룹 부서장 AI 역량교육</span>
+      <span class="tag gray">한화오션 현장책임자 AI 특강</span>
+      <span class="tag gray">롯데호텔 CEO·임원 AI 특강</span>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+
+<!-- ================= AGENDA ================= -->
+<section class="slide" data-no="" data-label="AGENDA" data-mod="오늘의 진행" data-title="오늘의 진행 — 4시간 동안 조별 업무 1건을 개선안 1장으로"
+ data-note="전체 흐름을 1분 안에 설명합니다. 각 모듈의 결과물이 다음 모듈의 입력이 된다는 점(업무 메모 → 검증된 AS-IS → 병목 근거 → TO-BE → 테스트 1건 → 발표 한 장)을 강조합니다. 휴식은 14:50~15:00, 15:00에 3모듈로 다시 시작합니다.">
+ <div class="orb" style="width:130px;height:130px;right:120px;top:120px" data-depth="20"></div>
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2>오늘의 진행</h2></div>
+  <p class="lead in" style="--d:1">4시간 동안 <b>조별 실제 업무 1건</b>을 AI와 분석하고, <span class="mk">우리가 검증한 개선안 1장</span>으로 정리합니다.</p>
+  <div class="body row" style="gap:30px">
+   <div class="agenda grow">
+    <div class="ag-line"></div>
+    <div class="ag-row in" style="--d:2"><div class="ag-time">13:30<small>20분</small></div><div class="ag-dot"></div><div class="card ag-card tilt"><div class="ag-h"><span class="tag ora">1</span><h3>워크플로우 분석 소개</h3><span class="ag-sl">01–04</span></div><p>시작·종료 정하기 · AI와 인사팀의 역할 · 공통 사례(근태 마감)</p></div></div>
+    <div class="ag-row in" style="--d:3"><div class="ag-time">13:50<small>60분</small></div><div class="ag-dot"></div><div class="card ag-card tilt"><div class="ag-h"><span class="tag ora">2</span><h3>AI로 AS-IS 작성과 검증</h3><span class="ag-sl">05–10 · 프롬프트 A·A-2</span></div><p>조별 업무 선정 → 5줄 메모 → AI 초안 → <b>확인·수정·보류</b> → 갱신</p></div></div>
+    <div class="ag-row in" style="--d:4"><div class="ag-time" style="color:var(--mute)">14:50<small>10분</small></div><div class="ag-dot" style="background:#CBD5E1"></div><div class="ag-break"><svg width="26" height="26"><use href="#i-coffee"/></svg>휴식 · 15:00에 다시 시작합니다</div></div>
+    <div class="ag-row in" style="--d:5"><div class="ag-time">15:00<small>90분</small></div><div class="ag-dot"></div><div class="card ag-card tilt"><div class="ag-h"><span class="tag ora">3</span><h3>AI로 병목 분석과 TO-BE 설계</h3><span class="ag-sl">11–17 · 프롬프트 B·C·D</span></div><p>병목 가설과 근거 → 개선 방법 6가지 → TO-BE → 정상·예외·실패 → 효과 측정</p></div></div>
+    <div class="ag-row in" style="--d:6"><div class="ag-time">16:30<small>35분</small></div><div class="ag-dot"></div><div class="card ag-card tilt"><div class="ag-h"><span class="tag ora">4</span><h3>도구 선택과 시연</h3><span class="ag-sl">18–20</span></div><p>Project·Skills·웹앱 비교 → 가상 근태 파일 검사 시연 → 첫 테스트 정하기</p></div></div>
+    <div class="ag-row in" style="--d:7"><div class="ag-time">17:05<small>25분</small></div><div class="ag-dot"></div><div class="card ag-card tilt"><div class="ag-h"><span class="tag ora">5</span><h3>발표와 마무리</h3><span class="ag-sl">21–22</span></div><p>조별 발표 5분 · 피드백 2분 → 파일럿 후보와 다음 검증 정하기</p></div></div>
+   </div>
+   <div class="col in" style="--d:4;width:560px;gap:18px">
+    <div class="card" style="flex:1;display:flex;flex-direction:column;padding:20px 24px;min-height:0">
+     <span class="k">시간 배분 (분)</span>
+     <div style="flex:1;position:relative;min-height:0"><canvas id="chAg"></canvas></div>
+    </div>
+    <div class="card dark" style="padding:22px 26px">
+     <span class="k" style="color:#FFB98E">결과물이 다음 단계의 입력이 됩니다</span>
+     <p style="font-size:22px;line-height:1.7;color:#fff">업무 메모 → 검증된 AS-IS → 병목 근거 → TO-BE → 테스트 1건 → <b style="color:#FFB98E">발표 한 장</b></p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 02 ================= -->
+<section class="slide" data-no="02" data-mod="1. 워크플로우 분석 소개" data-title="업무의 시작과 끝을 먼저 정합니다" data-min="5"
+ data-note="시작·종료를 정하지 않으면 조마다 다른 구간의 시간을 비교하게 됩니다. 직접 작업시간은 담당자가 손을 쓰는 시간, 경과시간은 대기를 포함해 시작부터 종료까지 흐른 시간입니다. 병렬로 기다리는 시간은 경과시간에 중복 합산하지 않습니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">02</span>업무의 시작과 끝을 먼저 정합니다</h2></div>
+  <p class="lead in" style="--d:1">넓은 업무명을 <b>분석할 수 있는 구간</b>으로 좁히면, 조마다 같은 기준으로 시간을 잴 수 있습니다.</p>
+  <div class="body col" style="gap:28px">
+   <!-- funnel -->
+   <div class="row in" style="--d:2;align-items:center;gap:0">
+    <div class="card dark tilt" style="width:420px;text-align:center;padding:34px"><span class="k" style="color:#FFB98E">넓은 업무명</span><h3 style="font-size:46px;margin:0">급여 관리</h3></div>
+    <svg width="230" height="150" viewBox="0 0 230 150" aria-hidden="true">
+     <path d="M0 10 L210 55 L210 95 L0 140 Z" fill="#FFE9DB"/>
+     <path class="svgline auto" style="--len:240" d="M20 75 H200" stroke="#F26B1D" stroke-width="6" fill="none" stroke-linecap="round"/>
+     <path d="M188 62 L206 75 L188 88" stroke="#F26B1D" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="card tilt grow" style="border:3px solid var(--accent);padding:30px 36px">
+     <span class="k">분석 범위</span>
+     <h3 style="font-size:40px;margin:0">월 근태 파일 <span class="mk">수합</span>부터 급여 반영 <span class="mk">승인</span>까지</h3>
+     <div class="row" style="gap:10px;margin-top:16px;flex-wrap:wrap"><span class="tag gray">담당자</span><span class="tag gray">입력</span><span class="tag gray">행동</span><span class="tag gray">산출물·다음 담당자</span><span class="tag gray">예외 경로</span></div>
+    </div>
+   </div>
+   <!-- two time concepts -->
+   <div class="row in" style="--d:4;gap:28px">
+    <div class="card tilt grow" style="display:flex;gap:24px;align-items:flex-start">
+     <div class="ico o"><svg><use href="#i-hand"/></svg></div>
+     <div class="grow"><h3>직접 작업시간</h3><p>담당자가 <b style="color:var(--ink)">손을 쓰는 시간</b> — 파일 정리, 대조, 요청문 작성</p></div>
+    </div>
+    <div class="card tilt grow" style="display:flex;gap:24px;align-items:flex-start">
+     <div class="ico n"><svg><use href="#i-clock"/></svg></div>
+     <div class="grow"><h3>경과시간</h3><p>시작부터 종료까지 <b style="color:var(--ink)">흐른 시간</b> — 회신·승인 대기 포함</p></div>
+    </div>
+   </div>
+   <!-- timeline illustration -->
+   <div class="card in" style="--d:5;padding:22px 34px">
+    <svg viewBox="0 0 1660 140" width="100%" height="190" aria-label="직접 작업시간과 경과시간 비교 그림">
+     <text x="0" y="28" font-size="22" fill="#475569" font-weight="700">교육용 가상 예시</text>
+     <rect x="0" y="48" width="1660" height="40" rx="10" fill="#EEF2F6"/>
+     <rect x="0" y="48" width="170" height="40" rx="10" fill="#F26B1D"/>
+     <rect x="170" y="48" width="140" height="40" fill="#F26B1D" opacity=".85"/>
+     <rect x="310" y="48" width="900" height="40" fill="url(#hatch)"/>
+     <rect x="1210" y="48" width="160" height="40" fill="#F26B1D"/>
+     <rect x="1370" y="48" width="290" height="40" rx="10" fill="url(#hatch)"/>
+     <defs><pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="14" height="14" fill="#E2E8F0"/><line x1="0" y1="0" x2="0" y2="14" stroke="#B6C0CC" stroke-width="5"/></pattern></defs>
+     <text x="20" y="75" font-size="20" fill="#fff" font-weight="700">수합</text><text x="186" y="75" font-size="20" fill="#fff" font-weight="700">대조</text>
+     <text x="640" y="75" font-size="20" fill="#475569" font-weight="700">회신 대기</text><text x="1228" y="75" font-size="20" fill="#fff" font-weight="700">재대조</text>
+     <text x="1440" y="75" font-size="20" fill="#475569" font-weight="700">승인 대기</text>
+     <path d="M0 104 v10 h1660 v-10" stroke="#1F2A40" stroke-width="3" fill="none"/>
+     <text x="830" y="136" font-size="21" fill="#1F2A40" font-weight="700" text-anchor="middle">경과시간 = 처음부터 끝까지</text>
+     <text x="1660" y="28" font-size="21" fill="#F26B1D" font-weight="700" text-anchor="end">■ 직접 작업　<tspan fill="#8A97A8">▨ 대기</tspan></text>
+    </svg>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 03 ================= -->
+<section class="slide" data-no="03" data-mod="1. 워크플로우 분석 소개" data-title="AI의 초안에서 팀의 결정까지" data-min="5"
+ data-note="확인은 근거가 맞을 때, 수정은 실제와 다를 때, 보류는 자료가 부족할 때 씁니다. 'AI 답변의 문장이 매끄러워도, 근거가 없으면 확인 필요에 둡니다.'">
+ <div class="orb" style="width:120px;height:120px;right:150px;top:150px" data-depth="20"></div>
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">03</span>AI의 초안에서 팀의 결정까지</h2></div>
+  <p class="lead in" style="--d:1">AI는 <b>초안과 가설</b>을 빠르게 내놓고, 인사팀은 <span class="mk"><b>사실과 책임</b>을 확정</span>합니다.</p>
+  <div class="body col" style="gap:20px">
+   <div class="row in" style="--d:2;gap:20px;font-size:24px;font-weight:900;color:var(--sub)">
+    <div style="width:260px"></div>
+    <div class="grow" style="display:flex;gap:10px;align-items:center;color:var(--ai)"><svg width="30" height="30"><use href="#i-ai"/></svg>AI가 제안</div>
+    <div style="width:80px"></div>
+    <div class="grow" style="display:flex;gap:10px;align-items:center;color:var(--hu)"><svg width="30" height="30"><use href="#i-users"/></svg>인사팀이 확인</div>
+   </div>
+   <div class="row in" style="--d:3;gap:20px;align-items:stretch">
+    <div class="card dark" style="width:260px;display:flex;align-items:center"><h3 style="margin:0;font-size:32px">현재 흐름<br><small style="font-size:20px;color:#FFB98E">AS-IS</small></h3></div>
+    <div class="card ai tilt grow"><h3>단계 제안</h3><p>순서 · 담당 · 입력·출력, 빠진 정보에 대한 질문</p></div>
+    <div class="flow"><div class="arr" style="width:80px"><svg><use href="#i-arrow"/></svg></div></div>
+    <div class="card hu tilt grow"><h3>실제 순서 확인</h3><p>최근 사례의 순서, 인수인계, 예외, 시간</p></div>
+   </div>
+   <div class="row in" style="--d:4;gap:20px;align-items:stretch">
+    <div class="card dark" style="width:260px;display:flex;align-items:center"><h3 style="margin:0;font-size:32px">병목<br><small style="font-size:20px;color:#FFB98E">BOTTLENECK</small></h3></div>
+    <div class="card ai tilt grow"><h3>원인 가설</h3><p>후보와 원인 가설, 후보를 구별할 증거</p></div>
+    <div class="flow"><div class="arr" style="width:80px"><svg><use href="#i-arrow"/></svg></div></div>
+    <div class="card hu tilt grow"><h3>근거 확인</h3><p>반복 여부, 관찰한 영향, 원인을 뒷받침할 근거</p></div>
+   </div>
+   <div class="row in" style="--d:5;gap:20px;align-items:stretch">
+    <div class="card dark" style="width:260px;display:flex;align-items:center"><h3 style="margin:0;font-size:32px">개선 흐름<br><small style="font-size:20px;color:#FFB98E">TO-BE</small></h3></div>
+    <div class="card ai tilt grow"><h3>대안 제안</h3><p>제거·통합·표준화·자동화·AI 보조 대안</p></div>
+    <div class="flow"><div class="arr" style="width:80px"><svg><use href="#i-arrow"/></svg></div></div>
+    <div class="card hu tilt grow"><h3>검토·승인 설계</h3><p>적용 조건, 사람의 판단·승인, 오류 시 복구 경로</p></div>
+   </div>
+   <div class="row in" style="--d:6;gap:18px;align-items:center;margin-top:6px">
+    <span style="font-size:26px;font-weight:900;margin-right:6px">상태 표시</span>
+    <span class="tag ok" style="font-size:24px"><svg width="22" height="22"><use href="#i-check"/></svg>확인 — 근거가 맞을 때</span>
+    <span class="tag fix" style="font-size:24px"><svg width="22" height="22"><use href="#i-pen"/></svg>수정 — 실제와 다를 때</span>
+    <span class="tag hold" style="font-size:24px"><svg width="22" height="22"><use href="#i-pause"/></svg>보류 — 자료가 부족할 때</span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 04 ================= -->
+<section class="slide" data-no="04" data-mod="1. 워크플로우 분석 소개" data-title="근태 마감은 어디에서 다시 돌아갈까요?" data-min="6" data-virtual="1" data-steps="1"
+ data-note="되돌림을 공개하기 전에 '예외 건은 회신 뒤 어느 단계로 돌아가나요?'라고 묻습니다. 클릭하면 ③에서 ②로 돌아가는 '회신 후 재대조'가 나타납니다. 가상 사례의 담당자가 재대조를 확인했다고 설명하고, 참가자 업무에서도 이런 확인 과정이 필요하다고 연결합니다.">
+ <div class="orb" style="width:150px;height:150px;right:110px;top:140px" data-depth="22"></div>
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">04</span>근태 마감은 어디에서 다시 돌아갈까요?</h2></div>
+  <p class="lead in" style="--d:1">가상 업무 메모 — “부서별 파일을 메일로 받는다. 양식이 달라 수작업으로 맞춘다. 기준 근태와 대조한 뒤 차이가 있는 건의 회신을 받는다. 확인된 자료는 담당자가 승인 요청한다.”</p>
+  <div class="body" style="margin-top:30px">
+   <div class="flow in" style="--d:2;gap:0">
+    <div class="card step tilt"><span class="sn">①</span><div class="ico o" style="margin-bottom:18px"><svg><use href="#i-mail"/></svg></div><h3>부서별 파일을 받는다</h3><p>메일로 수합, 양식이 제각각</p></div>
+    <div class="arr"><svg><use href="#i-arrow"/></svg></div>
+    <div class="card step tilt" id="s04-b"><span class="sn">②</span><div class="ico o" style="margin-bottom:18px"><svg><use href="#i-compare"/></svg></div><h3>기준 근태와 대조한다</h3><p>공통 열로 맞춘 뒤 차이 확인</p></div>
+    <div class="arr"><svg><use href="#i-arrow"/></svg></div>
+    <div class="card step tilt"><span class="sn">③</span><div class="ico o" style="margin-bottom:18px"><svg><use href="#i-loop"/></svg></div><h3>차이 건의 회신을 받는다</h3><p>담당 부서에 확인 요청</p></div>
+    <div class="arr"><svg><use href="#i-arrow"/></svg></div>
+    <div class="card step tilt"><span class="sn">④</span><div class="ico n" style="margin-bottom:18px"><svg><use href="#i-stamp"/></svg></div><h3>승인 요청한다</h3><p>확인된 자료를 담당자가 올림</p></div>
+   </div>
+   <svg viewBox="0 0 1728 220" width="100%" height="220" style="margin-top:4px" aria-hidden="true">
+    <path class="svgline draw" style="--len:900" d="M1100 10 C1100 170, 1050 180, 870 180 S 640 170, 640 10" stroke="#F26B1D" stroke-width="6" stroke-dasharray="14 12" fill="none"/>
+    <path class="rv" d="M622 34 L640 6 L658 34" stroke="#F26B1D" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+   </svg>
+   <div class="rv" style="position:absolute;left:1150px;top:330px;display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+    <span class="tag ora" style="font-size:30px;padding:10px 26px">회신 후 재대조</span>
+    <span style="font-size:24px;color:var(--sub)">담당자 확인: 회신 값으로 ②를 다시 수행</span>
+   </div>
+   <div class="rv-hide" style="position:absolute;left:0;top:450px;font-size:32px;font-weight:900;color:var(--ink);display:flex;gap:14px;align-items:center">
+    <span class="tag navy" style="font-size:24px">질문</span>예외 건은 회신 뒤 어느 단계로 돌아가나요?
+   </div>
+   <div class="clickhint">클릭하거나 → 키로 정답 공개 ▸</div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 05 ================= -->
+<section class="slide" data-no="05" data-mod="2. AI로 AS-IS 작성과 검증" data-title="조에서 실제 업무 하나를 고르세요" data-min="10" data-practice="1"
+ data-note="3인 조는 AI 입력과 기록·발표를 겸합니다. 사전과제 작성자가 있으면 업무 메모를 가져옵니다. 10분 종료 시 각 조에서 업무명과 범위만 한 문장으로 받습니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">05</span>조에서 실제 업무 하나를 고르세요</h2></div>
+  <div class="body row" style="gap:32px;margin-top:16px">
+   <div class="col" style="width:64%;gap:22px">
+    <div class="in" style="--d:1"><span class="k">후보 예시</span>
+     <div class="row" style="gap:18px">
+      <div class="card tilt grow"><div class="ico o" style="margin-bottom:14px"><svg><use href="#i-clock"/></svg></div><h3>월 근태 마감</h3><p>파일 수합 → 대조 → 회신 → 승인</p></div>
+      <div class="card tilt grow"><div class="ico b" style="margin-bottom:14px"><svg><use href="#i-folder"/></svg></div><h3>복리후생 신청 취합</h3><p>신청서 수합 · 증빙 확인</p></div>
+      <div class="card tilt grow"><div class="ico g" style="margin-bottom:14px"><svg><use href="#i-file"/></svg></div><h3>인사제도 안내문</h3><p>초안 · 검토 · 공지</p></div>
+     </div>
+    </div>
+    <div class="in" style="--d:2"><span class="k">선정 기준 — 세 가지를 모두 만족</span>
+     <div class="col" style="gap:14px">
+      <div class="card tilt" style="display:flex;gap:20px;align-items:center;padding:20px 28px"><div class="ico g round"><svg><use href="#i-check"/></svg></div><h3 style="margin:0;font-size:30px">최근 사례를 설명할 수 있다</h3></div>
+      <div class="card tilt" style="display:flex;gap:20px;align-items:center;padding:20px 28px"><div class="ico g round"><svg><use href="#i-check"/></svg></div><h3 style="margin:0;font-size:30px">반복되거나 영향이 크다</h3></div>
+      <div class="card tilt" style="display:flex;gap:20px;align-items:center;padding:20px 28px"><div class="ico g round"><svg><use href="#i-check"/></svg></div><h3 style="margin:0;font-size:30px">시작과 종료를 정할 수 있다</h3></div>
+     </div>
+    </div>
+   </div>
+   <div class="col grow in" style="--d:3;gap:14px">
+    <span class="k">조 역할 배분</span>
+    <div class="card ai tilt" style="display:flex;gap:18px;align-items:center;padding:18px 24px"><div class="ico b round" style="background:#fff"><svg><use href="#i-mic"/></svg></div><div><h3 style="margin:0;font-size:28px">업무 설명</h3><p style="font-size:21px">최근 사례를 말한다</p></div></div>
+    <div class="card ai tilt" style="display:flex;gap:18px;align-items:center;padding:18px 24px"><div class="ico b round" style="background:#fff"><svg><use href="#i-ai"/></svg></div><div><h3 style="margin:0;font-size:28px">AI 입력</h3><p style="font-size:21px">프롬프트를 실행한다</p></div></div>
+    <div class="card hu tilt" style="display:flex;gap:18px;align-items:center;padding:18px 24px"><div class="ico g round" style="background:#fff"><svg><use href="#i-search"/></svg></div><div><h3 style="margin:0;font-size:28px">사실 확인</h3><p style="font-size:21px">초안을 실제와 대조한다</p></div></div>
+    <div class="card hu tilt" style="display:flex;gap:18px;align-items:center;padding:18px 24px"><div class="ico g round" style="background:#fff"><svg><use href="#i-pen"/></svg></div><div><h3 style="margin:0;font-size:28px">기록·발표</h3><p style="font-size:21px">판정과 근거를 남긴다</p></div></div>
+    <p style="font-size:21px;color:var(--sub)">※ 3인 조는 AI 입력과 기록·발표를 겸합니다.</p>
+   </div>
+  </div>
+  <div class="nextbar in" style="--d:5"><span class="tag ora">완료</span><span class="nt" style="white-space:nowrap">업무명 · 시작 · 종료를 <b>한 문장</b>으로 —</span><span class="edit grow" contenteditable="true" data-save="s05" data-ph="예) 월 근태 마감 — 부서 파일 수합부터 급여 반영 승인까지" style="color:#fff;border-color:#5A6B85"></span></div>
+ </div>
+</section>
+
+<!-- ================= 06 ================= -->
+<section class="slide" data-no="06" data-mod="2. AI로 AS-IS 작성과 검증" data-title="최근에 한 업무를 다섯 줄로 설명하세요" data-min="10" data-practice="1" data-virtual="1"
+ data-note="사전과제에 적은 메모나 담당자의 구두 설명을 씁니다. 정교한 맵을 그리지 않아도 됩니다. 사번·급여액 등 민감한 값은 제외하고, 담당자와 부서는 역할명으로 씁니다. 모르는 부분은 비워 둡니다. 다음 장에서 이 메모를 AI에 넣습니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">06</span>최근에 한 업무를 다섯 줄로 설명하세요</h2></div>
+  <div class="body row" style="gap:32px;margin-top:16px">
+   <div class="prompt in" style="--d:1;width:64%">
+    <div class="ph"><span>업무 메모 양식 — 직접 수정 후 복사</span><span class="hint">빈칸은 그대로 둬도 됩니다</span></div>
+    <textarea data-key="memo" spellcheck="false">① 업무명·시작·종료:
+② 실제 행동(최근 사례 순서대로):
+③ 주고받은 자료·시스템:
+④ 최근 예외와 승인:
+⑤ 빈도·시간의 근거(기록 확인 / 담당자 추정 / 미확인): </textarea>
+    <div class="pf"><button class="btn pri" data-copy>복사</button><button class="btn sec" data-reset>원래대로</button><span class="msg">복사했습니다</span></div>
+   </div>
+   <div class="col grow" style="gap:20px">
+    <div class="card ai tilt in" style="--d:2"><span class="k">가상 예시 한 줄 — ②</span><h3 style="font-size:30px;line-height:1.4">“양식이 다른 부서 파일을 메일로 받아 공통 열에 맞춘다.”</h3></div>
+    <div class="card hold tilt in" style="--d:3"><span class="k" style="color:var(--hold)">주의</span>
+     <p style="color:var(--hold);font-size:25px">· 사번·급여액 등 <b>민감한 값은 제외</b><br>· 담당자·부서는 <b>역할명</b>으로<br>· 모르는 부분은 <b>비워 두기</b></p></div>
+    <div class="card tilt in" style="--d:4;display:flex;gap:18px;align-items:center"><div class="ico n"><svg><use href="#i-file"/></svg></div><p style="font-size:24px">사전과제 메모나 담당자 구두 설명을 그대로 옮겨도 됩니다.</p></div>
+   </div>
+  </div>
+  <div class="nextbar in" style="--d:5"><span class="tag ora">다음 단계</span><span class="nt">이 메모를 <b>프롬프트 A</b>의 [최근 업무 메모] 자리에 붙여넣습니다.</span></div>
+ </div>
+</section>
+
+<!-- ================= 07 ================= -->
+<section class="slide" data-no="07" data-mod="2. AI로 AS-IS 작성과 검증" data-title="프롬프트 A | AI가 현재 흐름을 표로 만듭니다" data-min="10" data-practice="1" data-virtual="1"
+ data-note="부록 A의 전체 프롬프트를 배포합니다(화면의 상자를 직접 수정·복사 가능). AI 응답이 도식만 제공하면 단계 ID와 근거가 포함된 표로 다시 요청합니다. 첫 응답은 반드시 저장합니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">07</span>프롬프트 A | AI가 현재 흐름을 표로 만듭니다</h2></div>
+  <p class="lead in" style="--d:1">핵심 — 업무 메모를 <b>단계 ID가 있는 표</b>로. 메모에 없는 담당·승인·수치는 <span class="mk"><b>‘확인 필요’</b>로 표시</span>.</p>
+  <div class="body row" style="gap:28px">
+   <div class="prompt in" style="--d:2;width:52%">
+    <div class="ph"><span>프롬프트 A · AS-IS 초안</span><span class="hint">[ ] 안을 우리 조 메모로 바꾸세요</span></div>
+    <textarea data-key="pA" spellcheck="false">아래는 우리 조의 최근 업무 사례 메모야. 메모를 근거로 업무의 시작과 종료를 한 문장씩 적고, 현재 업무 흐름을 순서대로 표로 정리해 줘. 열은 ‘단계 ID / 실제 행동 / 담당 역할 / 입력·시스템 / 산출물·다음 담당자 / 직접 작업분 / 대기 / 예외·되돌아가는 단계 / 메모 근거’로 해 줘. 메모에 없는 담당자, 승인, 수치, 순서는 임의로 채우지 말고 ‘확인 필요’로 표시해. 흐름을 확정하는 데 필요한 질문을 영향이 큰 순서로 최대 3개 제시해 줘.
+
+[최근 업무 메모]
+</textarea>
+    <div class="pf"><button class="btn pri" data-copy>복사</button><button class="btn sec" data-reset>원래대로</button><button class="btn sec" data-memo>06장 메모 넣기</button><span class="msg">복사했습니다</span></div>
+   </div>
+   <div class="col grow in" style="--d:3;gap:14px">
+    <span class="k">결과 미리보기 (가상)</span>
+    <table class="t" style="font-size:22px">
+     <thead><tr><th>ID</th><th>실제 행동</th><th>담당·입력</th><th>다음 단계</th><th>근거</th></tr></thead>
+     <tbody>
+      <tr><td><b>A01</b></td><td>부서 파일 수합</td><td>근태 담당 · 메일</td><td>A02</td><td>메모</td></tr>
+      <tr><td><b>A02</b></td><td>기준 근태와 대조</td><td>근태 담당 · 엑셀</td><td>A03</td><td>메모</td></tr>
+      <tr><td><b>A03</b></td><td>차이 건 회신 요청</td><td><span class="tag hold" style="font-size:18px">확인 필요</span></td><td>A04</td><td>메모</td></tr>
+      <tr><td><b>A04</b></td><td>승인 요청</td><td>담당자 · <span class="tag hold" style="font-size:18px">확인 필요</span></td><td>종료</td><td>메모</td></tr>
+     </tbody>
+    </table>
+    <div class="card ai" style="padding:18px 24px"><p style="font-size:22px;color:var(--ai)"><b>AI의 질문 예</b> — 회신을 받은 뒤 어느 단계로 돌아가나요? 최종 승인자는 누구인가요?</p></div>
+   </div>
+  </div>
+  <div class="nextbar in" style="--d:5"><span class="tag ora">저장</span><span class="nt">첫 응답을 저장하세요. 다음 장에서 <b>확인 · 수정 · 보류</b>를 붙입니다.</span></div>
+ </div>
+</section>
+
+<!-- ================= 08 ================= -->
+<section class="slide" data-no="08" data-mod="2. AI로 AS-IS 작성과 검증" data-title="AI의 초안에 검토 표시를 붙입니다" data-min="5" data-virtual="1" data-steps="1"
+ data-note="왼쪽 AI 출력을 먼저 보여주고 '각 문장을 확인·수정·보류 중 무엇으로 판정할까요?'를 묻습니다. 클릭하면 판정과 근거가 공개됩니다. 첫 사례는 업무 메모, 두 번째는 담당자 확인, 세 번째는 추가 확인이 필요한 정보입니다. 보류는 정보 부족을 뜻하며, 근거가 나오면 상태를 바꿉니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">08</span>AI의 초안에 검토 표시를 붙입니다</h2></div>
+  <p class="lead in" style="--d:1">매끄러운 문장도 <b>근거가 어디에서 왔는지</b> 묻습니다.</p>
+  <div class="body col" style="gap:26px;margin-top:10px">
+   <div class="row in" style="--d:2;gap:24px;font-size:24px;font-weight:900">
+    <div style="width:45%;color:var(--ai);display:flex;gap:10px;align-items:center"><svg width="30" height="30"><use href="#i-ai"/></svg>AI 출력</div>
+    <div class="grow" style="color:var(--hu);display:flex;gap:10px;align-items:center"><svg width="30" height="30"><use href="#i-users"/></svg>조원의 판정과 근거</div>
+   </div>
+   <div class="row in" style="--d:3;gap:24px;align-items:stretch">
+    <div class="card ai tilt" style="width:45%;padding:40px 34px;display:flex;align-items:center"><h3 style="font-size:32px;margin:0">“파일 수합 때 양식을 맞춘다”</h3></div>
+    <div class="card grow rv" style="display:flex;gap:22px;align-items:center"><span class="tag ok" style="font-size:26px"><svg width="22" height="22"><use href="#i-check"/></svg>확인</span><p style="font-size:26px">최근 업무 메모에 명시돼 있다</p></div>
+   </div>
+   <div class="row in" style="--d:4;gap:24px;align-items:stretch">
+    <div class="card ai tilt" style="width:45%;padding:40px 34px;display:flex;align-items:center"><h3 style="font-size:32px;margin:0">“회신 후 바로 승인 요청한다”</h3></div>
+    <div class="card grow rv" style="display:flex;gap:22px;align-items:center;transition-delay:.15s"><span class="tag fix" style="font-size:26px"><svg width="22" height="22"><use href="#i-pen"/></svg>수정</span><p style="font-size:26px"><b style="color:var(--ink)">먼저 재대조.</b> 회신이 오면 담당자가 ② 대조를 다시 한다 — 담당자 확인</p></div>
+   </div>
+   <div class="row in" style="--d:5;gap:24px;align-items:stretch">
+    <div class="card ai tilt" style="width:45%;padding:40px 34px;display:flex;align-items:center"><h3 style="font-size:32px;margin:0">“팀장이 전자결재로 승인한다”</h3></div>
+    <div class="card grow rv" style="display:flex;gap:22px;align-items:center;transition-delay:.3s"><span class="tag hold" style="font-size:26px"><svg width="22" height="22"><use href="#i-pause"/></svg>보류</span><p style="font-size:26px">승인자·시스템 미확인 — 원 메모에 없음, 추가 확인 필요</p></div>
+   </div>
+   <div class="card hold rv" style="padding:22px 30px;transition-delay:.45s;display:flex;gap:16px;align-items:center"><svg width="34" height="34" style="color:var(--hold);flex:none"><use href="#i-pause"/></svg><p style="font-size:26px;color:var(--hold)"><b>보류</b>는 틀렸다는 뜻이 아니라 <b>정보가 부족하다</b>는 뜻입니다. 근거가 나오면 상태를 바꿉니다.</p></div>
+   <div class="clickhint">클릭하거나 → 키로 판정 공개 ▸</div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 09 ================= -->
+<section class="slide" data-no="09" data-mod="2. AI로 AS-IS 작성과 검증" data-title="우리 조의 초안을 실제 업무와 대조하세요" data-min="15" data-practice="1" data-virtual="1"
+ data-note="담당자의 설명이나 비식별 양식·로그로 대조합니다. 수치는 '기록 확인 / 담당자 추정 / 미확인'으로 표시합니다. 변형이 여러 개면 기본 흐름과 예외를 구분하고, 의견이 갈리면 보류합니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">09</span>우리 조의 초안을 실제 업무와 대조하세요</h2></div>
+  <p class="lead in" style="--d:1"><span class="mk">최소 한 항목에 <b>판정과 근거</b>를 남기세요.</span></p>
+  <div class="body row" style="gap:30px">
+   <div class="col in" style="--d:2;width:40%;gap:16px">
+    <span class="k">검토 순서</span>
+    <div class="card tilt" style="display:flex;gap:20px;align-items:center;padding:30px 26px"><div class="ico o"><svg><use href="#i-arrow"/></svg></div><div><h3 style="margin:0;font-size:30px">① 순서·인수인계</h3><p style="font-size:21px">누가 누구에게 넘기나</p></div></div>
+    <div class="card tilt" style="display:flex;gap:20px;align-items:center;padding:30px 26px"><div class="ico o"><svg><use href="#i-file"/></svg></div><div><h3 style="margin:0;font-size:30px">② 담당·자료</h3><p style="font-size:21px">실제 파일과 시스템</p></div></div>
+    <div class="card tilt" style="display:flex;gap:20px;align-items:center;padding:30px 26px"><div class="ico o"><svg><use href="#i-loop"/></svg></div><div><h3 style="margin:0;font-size:30px">③ 승인·예외</h3><p style="font-size:21px">되돌아가는 단계</p></div></div>
+    <div class="card tilt" style="display:flex;gap:20px;align-items:center;padding:30px 26px"><div class="ico o"><svg><use href="#i-clock"/></svg></div><div><h3 style="margin:0;font-size:30px">④ 시간·빈도</h3><p style="font-size:21px">숫자의 출처</p></div></div>
+   </div>
+   <div class="col grow in" style="--d:3;gap:18px">
+    <span class="k">기록 표 — 직접 입력해 보세요</span>
+    <table class="t" style="font-size:24px">
+     <thead><tr><th style="width:90px">ID</th><th style="width:130px">판정</th><th>확인·수정 내용</th><th style="width:200px">근거</th></tr></thead>
+     <tbody>
+      <tr style="height:84px"><td><b>A03</b></td><td><span class="tag fix" style="font-size:19px">수정</span></td><td>회신 후 A02로 되돌아감</td><td>담당자 설명</td></tr>
+      <tr style="height:96px"><td><span class="edit" contenteditable data-save="s09a" data-ph="A0_"></span></td><td><span class="edit" contenteditable data-save="s09b" data-ph="확인/수정/보류"></span></td><td><span class="edit" contenteditable data-save="s09c" data-ph="우리 조 내용"></span></td><td><span class="edit" contenteditable data-save="s09d" data-ph="근거"></span></td></tr>
+      <tr style="height:96px"><td><span class="edit" contenteditable data-save="s09e" data-ph="A0_"></span></td><td><span class="edit" contenteditable data-save="s09f" data-ph="확인/수정/보류"></span></td><td><span class="edit" contenteditable data-save="s09g" data-ph="우리 조 내용"></span></td><td><span class="edit" contenteditable data-save="s09h" data-ph="근거"></span></td></tr>
+     </tbody>
+    </table>
+    <div class="card" style="padding:20px 26px"><span class="k">숫자에는 출처 라벨</span>
+     <div class="row" style="gap:12px"><span class="tag ok">기록 확인</span><span class="tag ai">담당자 추정</span><span class="tag hold">미확인</span></div></div>
+    <p style="font-size:22px;color:var(--sub)">변형이 여러 개면 <b>기본 흐름과 예외</b>를 나누고, 의견이 갈리면 보류합니다.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 10 ================= -->
+<section class="slide" data-no="10" data-mod="2. AI로 AS-IS 작성과 검증" data-title="프롬프트 A-2 | 확인한 사실로 AS-IS를 갱신합니다" data-min="10" data-practice="1" data-virtual="1"
+ data-note="AI가 보류 내용을 확정 흐름에 넣지 않았는지 확인합니다. 오른쪽 비교 화면의 손잡이를 끌어 초안과 갱신본의 차이를 보여줍니다. 조별 파일에 표를 저장한 뒤 휴식(14:50~15:00)합니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">10</span>프롬프트 A-2 | 확인한 사실로 AS-IS를 갱신합니다</h2></div>
+  <p class="lead in" style="--d:1">핵심 — <b>기존 단계 ID를 유지</b>하고, 확인·수정한 내용만 확정 표에 반영.</p>
+  <div class="body row" style="gap:28px">
+   <div class="prompt in" style="--d:2;width:48%">
+    <div class="ph"><span>프롬프트 A-2 · AS-IS 갱신</span><span class="hint">초안과 검토 메모를 붙여넣기</span></div>
+    <textarea data-key="pA2" spellcheck="false">아래 AS-IS 초안과 조별 검토 메모를 반영해 표를 갱신해 줘. 기존 단계 ID를 유지하고, 새 단계가 필요하면 새 ID를 붙여 줘. 우리가 확인한 사실과 수정한 내용만 확정 흐름에 넣어. 확인이 끝나지 않은 내용은 ‘미확인 사항’으로 분리해 줘. 마지막에 반영한 변경 내역과 예외가 돌아가는 단계 ID를 짧게 요약해 줘.
+
+[초안]
+
+[확인·수정·보류 메모]
+</textarea>
+    <div class="pf"><button class="btn pri" data-copy>복사</button><button class="btn sec" data-reset>원래대로</button><span class="msg">복사했습니다</span></div>
+   </div>
+   <div class="col grow in" style="--d:3;gap:16px">
+    <span class="k">손잡이를 끌어 비교 — 첫 초안 ⇆ 갱신된 AS-IS</span>
+    <div class="ba" data-ba style="height:360px">
+     <div class="pane before">
+      <span class="lab" style="left:16px;background:var(--ai-bg);color:var(--ai)">첫 초안</span>
+      <div style="margin-top:46px;font-size:23px;line-height:2.05">
+       <div><b>A01</b> 부서 파일 수합</div><div><b>A02</b> 기준 근태와 대조</div><div><b>A03</b> 회신 요청</div><div><b>A04</b> 회신 후 바로 승인 요청</div><div><b>A05</b> 팀장 전자결재 승인</div></div>
+     </div>
+     <div class="pane after" style="background:#F4FBF8">
+      <span class="lab" style="right:16px;background:var(--hu-bg);color:var(--hu)">갱신된 AS-IS</span>
+      <div style="margin-top:46px;font-size:23px;line-height:2.05;text-align:right">
+       <div><b>A01</b> 부서 파일 수합 <span class="flag ok">확인</span></div><div><b>A02</b> 기준 근태와 대조</div><div><b>A03</b> 회신 → <b style="color:var(--accent)">A02 재대조</b> <span class="flag miss">수정</span></div><div><b>A04</b> 승인 요청</div><div style="color:var(--mute)">A05 → 미확인 목록 <span class="flag err">보류</span></div></div>
+     </div>
+     <div class="handle"></div>
+    </div>
+    <div class="row" style="gap:16px">
+     <div class="card hu grow" style="padding:18px 22px"><h3 style="font-size:24px;margin:0">확정 AS-IS 표</h3></div>
+     <div class="card hold grow" style="padding:18px 22px"><h3 style="font-size:24px;margin:0">미확인 목록 · 승인자</h3></div>
+    </div>
+   </div>
+  </div>
+  <div class="nextbar in" style="--d:5"><svg width="34" height="34" style="color:#FFB98E"><use href="#i-coffee"/></svg><span class="nt">휴식 14:50 – 15:00 · <b>15:00에 다시 시작합니다</b></span><span style="margin-left:auto;font-size:22px;color:#C9D3E0">다음 단계 입력 — 확정 AS-IS + 미확인 목록</span></div>
+ </div>
+</section>
+
+<!-- ================= 11 ================= -->
+<section class="slide" data-no="11" data-mod="3. AI로 병목 분석과 TO-BE 설계" data-title="40분 대조와 2일 회신 대기 중 무엇을 줄일까요?" data-min="10" data-virtual="1"
+ data-note="두 수치는 가정입니다. 시간 단위가 다르므로 같은 눈금으로 비교하지 않습니다. '회신이 늦었다'는 관찰, '요청 기준이 불명확했다'는 가설입니다. 원인을 가리려면 어떤 증거가 필요한지 한 가지 받습니다(예: 양식 문제인지 제출 시점 문제인지).">
+ <div class="orb" style="width:140px;height:140px;right:140px;top:150px" data-depth="20"></div>
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">11</span>40분 대조와 2일 회신 대기 중 무엇을 줄일까요?</h2></div>
+  <p class="lead in" style="--d:1">병목은 가장 오래 걸린 단계와 같을까요? 단위가 다른 두 시간을 <b>각자의 지표</b>로 봅니다.</p>
+  <div class="body col" style="gap:26px">
+   <div class="row" style="gap:30px">
+    <div class="card tilt grow in" style="--d:2;display:flex;gap:34px;align-items:center;padding:36px 40px">
+     <svg width="210" height="210" viewBox="0 0 210 210" aria-hidden="true"><circle cx="105" cy="105" r="88" fill="none" stroke="#FFE9DB" stroke-width="20"/><circle class="ring" cx="105" cy="105" r="88" fill="none" stroke="#F26B1D" stroke-width="20" stroke-linecap="round" stroke-dasharray="553" stroke-dashoffset="553" data-ring="0.667" transform="rotate(-90 105 105)"/><use href="#i-hand" x="65" y="65" width="80" height="80" color="#F26B1D"/></svg>
+     <div><span class="k">자료 대조</span><div style="font-size:120px;font-weight:900;line-height:1;color:var(--accent)"><span data-count="40">0</span><small style="font-size:44px;color:var(--ink)">분</small></div><h3 style="margin-top:14px">→ 직접 작업시간</h3><p>한 시간 눈금 중 40분 · 손이 가는 일</p></div>
+    </div>
+    <div class="card tilt grow in dark" style="--d:3;display:flex;gap:34px;align-items:center;padding:36px 40px">
+     <svg width="210" height="210" viewBox="0 0 210 210" aria-hidden="true"><circle cx="105" cy="105" r="88" fill="none" stroke="#33415C" stroke-width="20"/><circle class="ring" cx="105" cy="105" r="88" fill="none" stroke="#FFB98E" stroke-width="20" stroke-linecap="round" stroke-dasharray="553" stroke-dashoffset="553" data-ring="0.4" transform="rotate(-90 105 105)"/><use href="#i-hourglass" x="65" y="65" width="80" height="80" color="#FFB98E"/></svg>
+     <div><span class="k" style="color:#FFB98E">회신 대기</span><div style="font-size:120px;font-weight:900;line-height:1;color:#fff"><span data-count="2">0</span><small style="font-size:44px;color:#C9D3E0">일</small></div><h3 style="margin-top:14px">→ 전체 경과시간</h3><p>마감 5영업일 중 2일 · 기다리는 일</p></div>
+    </div>
+   </div>
+   <div class="row in" style="--d:4;gap:24px">
+    <div class="card grow" style="display:flex;gap:18px;align-items:center"><span class="tag ok" style="font-size:24px">관찰</span><p style="font-size:27px;color:var(--ink)">“회신이 늦었다”</p></div>
+    <div class="card grow" style="display:flex;gap:18px;align-items:center"><span class="tag hold" style="font-size:24px">가설</span><p style="font-size:27px;color:var(--ink)">“요청 기준이 불명확했다”</p></div>
+    <div class="card orange grow" style="display:flex;gap:18px;align-items:center"><svg width="40" height="40"><use href="#i-target"/></svg><h3 style="margin:0;font-size:30px">먼저 바꿀 지표를 정하세요</h3></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 12 ================= -->
+<section class="slide" data-no="12" data-mod="3. AI로 병목 분석과 TO-BE 설계" data-title="프롬프트 B | AI에게 병목 가설과 확인 방법을 묻습니다" data-min="15" data-practice="1" data-virtual="1"
+ data-note="AI가 주장한 원인을 관찰 사실과 구분합니다. 근거를 단계 ID에 연결하고, 근거가 충분하지 않으면 '파일럿에서 검증할 가설'로 표시합니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">12</span>프롬프트 B | AI에게 병목 가설과 확인 방법을 묻습니다</h2></div>
+  <p class="lead in" style="--d:1">핵심 — 병목 후보 <b>최대 3개</b>, 각각 <b>단계 ID · 근거 · 원인 가설 · 확인 자료</b>를 붙여서.</p>
+  <div class="body row" style="gap:28px">
+   <div class="col in" style="--d:2;width:52%;gap:14px">
+    <div class="card hu" style="display:flex;gap:16px;align-items:center;padding:16px 24px"><div class="ico g" style="background:#fff;width:52px;height:52px"><svg><use href="#i-file"/></svg></div><p style="font-size:23px;color:var(--hu)"><b>입력</b> — 확정 AS-IS + 미확인 사항 (10장 결과)</p></div>
+    <div class="prompt grow">
+     <div class="ph"><span>프롬프트 B · 병목 후보</span><span class="hint">직접 수정 후 복사</span></div>
+     <textarea data-key="pB" spellcheck="false">검증된 AS-IS를 바탕으로 대기·재작업·반복 작업·오류를 유발하는 병목 후보를 최대 3개 제시해 줘. 후보마다 ‘단계 ID / 관찰한 현상 / AS-IS 근거 / 원인 가설 / 영향을 받는 지표 / 가설을 확인할 자료 또는 질문’을 적어 줘. 근거가 없는 원인은 가설로 표시하고, 제공하지 않은 시간과 빈도는 추정하지 마. 직접 작업시간을 줄일 후보와 전체 경과시간을 줄일 후보를 구분해 줘.
+
+[검증된 AS-IS]
+
+[미확인 사항]
+</textarea>
+     <div class="pf"><button class="btn pri" data-copy>복사</button><button class="btn sec" data-reset>원래대로</button><span class="msg">복사했습니다</span></div>
+    </div>
+   </div>
+   <div class="col grow in" style="--d:3;gap:16px">
+    <span class="k">AI 출력 예시 (가상)</span>
+    <div class="card ai tilt" style="padding:26px 30px">
+     <div class="row" style="gap:12px;margin-bottom:14px"><span class="tag navy">A02</span><span class="tag ora">직접 작업시간 ↓</span></div>
+     <table style="width:100%;font-size:24px;border-collapse:collapse;line-height:1.5">
+      <tr><td style="color:var(--ai);font-weight:700;width:150px;padding:6px 0">관찰</td><td>수작업 대조</td></tr>
+      <tr><td style="color:var(--ai);font-weight:700;padding:6px 0">원인 가설</td><td>부서별 양식이 다름 <span class="flag err">가설</span></td></tr>
+      <tr><td style="color:var(--ai);font-weight:700;padding:6px 0">확인 자료</td><td>부서별 파일 양식 비교</td></tr>
+     </table>
+    </div>
+    <div class="card tilt" style="opacity:.75;padding:22px 30px"><div class="row" style="gap:12px"><span class="tag navy">A03</span><span class="tag gray">경과시간 ↓</span></div><p style="font-size:23px;margin-top:10px">회신 대기 — 요청 기준 불명확 <span class="flag err">가설</span></p></div>
+    <div class="card hold" style="padding:18px 24px"><p style="font-size:22px;color:var(--hold)">근거가 부족하면 → <b>파일럿에서 검증할 가설</b>로 표시</p></div>
+   </div>
+  </div>
+  <div class="nextbar in" style="--d:5"><span class="tag ora">선택</span><span class="nt"><b>근거가 있는 후보 1개</b>를 고르세요.</span></div>
+ </div>
+</section>
+
+<!-- ================= 13 ================= -->
+<section class="slide" data-no="13" data-mod="3. AI로 병목 분석과 TO-BE 설계" data-title="병목 원인에 맞춰 개선 방법을 고릅니다" data-min="15" data-practice="1" data-virtual="1"
+ data-note="같은 병목에 비AI 대안과 AI·규칙 대안을 모두 요청합니다. AI의 순위나 점수는 비교 자료로만 쓰고, 조원이 선택 이유와 선결 조건을 기록합니다. 데이터 접근·승인 조건을 확인할 수 없는 안은 조건부로 남깁니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">13</span>병목 원인에 맞춰 개선 방법을 고릅니다</h2></div>
+  <div class="body row" style="gap:28px;margin-top:14px">
+   <div class="col" style="width:60%;gap:20px">
+    <div class="in" style="--d:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+     <div class="card tilt" style="padding:20px 22px"><div class="ico n" style="width:52px;height:52px;margin-bottom:10px"><svg><use href="#i-trash"/></svg></div><h3 style="font-size:28px;margin:0">제거</h3><p style="font-size:20px">필요 없는 단계를 없앤다</p></div>
+     <div class="card tilt" style="padding:20px 22px"><div class="ico n" style="width:52px;height:52px;margin-bottom:10px"><svg><use href="#i-merge"/></svg></div><h3 style="font-size:28px;margin:0">통합</h3><p style="font-size:20px">흩어진 단계를 합친다</p></div>
+     <div class="card tilt" style="padding:20px 22px"><div class="ico o" style="width:52px;height:52px;margin-bottom:10px"><svg><use href="#i-ruler"/></svg></div><h3 style="font-size:28px;margin:0">표준화</h3><p style="font-size:20px">공통 양식</p></div>
+     <div class="card tilt" style="padding:20px 22px"><div class="ico o" style="width:52px;height:52px;margin-bottom:10px"><svg><use href="#i-gear"/></svg></div><h3 style="font-size:28px;margin:0">규칙 자동화</h3><p style="font-size:20px">누락·차이 탐지</p></div>
+     <div class="card ai tilt" style="padding:20px 22px"><div class="ico b" style="width:52px;height:52px;margin-bottom:10px;background:#fff"><svg><use href="#i-spark"/></svg></div><h3 style="font-size:28px;margin:0">AI 보조</h3><p style="font-size:20px;color:var(--ai)">사유 요약·요청문</p></div>
+     <div class="card hu tilt" style="padding:20px 22px"><div class="ico g" style="width:52px;height:52px;margin-bottom:10px;background:#fff"><svg><use href="#i-ucheck"/></svg></div><h3 style="font-size:28px;margin:0">사람 수행</h3><p style="font-size:20px;color:var(--hu)">예외 판정·최종 승인</p></div>
+    </div>
+    <div class="card in" style="--d:3;padding:22px 26px">
+     <span class="k">근태 사례에 적용 (가상)</span>
+     <div class="flow" style="align-items:center">
+      <div class="step" style="text-align:center"><span class="tag ora" style="font-size:19px">표준화</span><div style="font-size:24px;font-weight:700;margin-top:8px">공통 양식</div></div>
+      <div class="arr" style="width:44px"><svg style="width:32px"><use href="#i-arrow"/></svg></div>
+      <div class="step" style="text-align:center"><span class="tag ora" style="font-size:19px">규칙</span><div style="font-size:24px;font-weight:700;margin-top:8px">차이 검사</div></div>
+      <div class="arr" style="width:44px"><svg style="width:32px"><use href="#i-arrow"/></svg></div>
+      <div class="step" style="text-align:center"><span class="tag ai" style="font-size:19px">AI 보조</span><div style="font-size:24px;font-weight:700;margin-top:8px">확인 요청문 초안</div></div>
+      <div class="arr" style="width:44px"><svg style="width:32px"><use href="#i-arrow"/></svg></div>
+      <div class="step" style="text-align:center"><span class="tag hu" style="font-size:19px">사람</span><div style="font-size:24px;font-weight:700;margin-top:8px">담당자 판단</div></div>
+     </div>
+    </div>
+   </div>
+   <div class="col grow" style="gap:16px">
+    <div class="prompt in" style="--d:2;flex:1">
+     <div class="ph"><span>AI에 덧붙일 요청</span><span class="hint">수정 후 복사</span></div>
+     <textarea data-key="p13" spellcheck="false">이 병목에 대해 비AI 개선안과 AI 또는 규칙 기반 대안을 제안해 줘. 반복성, 기술 난이도, 업무 가치, 데이터 형식, 보안·규제 조건을 비교하고, 판단 근거가 없으면 ‘확인 필요’로 표시해 줘.
+
+[선택한 병목과 근거]
+</textarea>
+     <div class="pf"><button class="btn pri" data-copy>복사</button><button class="btn sec" data-reset>원래대로</button><span class="msg">복사했습니다</span></div>
+    </div>
+    <div class="card in" style="--d:4;padding:18px 22px"><span class="k">판단 조건</span>
+     <div class="row" style="gap:8px;flex-wrap:wrap"><span class="tag gray">빈도</span><span class="tag gray">난이도</span><span class="tag gray">가치</span><span class="tag gray">데이터</span><span class="tag gray">보안 조건</span></div></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 14 ================= -->
+<section class="slide" data-no="14" data-mod="3. AI로 병목 분석과 TO-BE 설계" data-title="프롬프트 C | 병목과 연결된 TO-BE를 그립니다" data-min="15" data-practice="1" data-virtual="1"
+ data-note="AI가 새 단계를 실제 병목과 연결했는지 먼저 확인합니다. 'AI가 전부 처리'처럼 뭉뚱그린 단계는 입력·출력과 책임자를 나눠 다시 묻습니다. 확인되지 않은 시스템 연동·권한은 선결 조건으로 따로 둡니다. 조마다 최소 한 단계에서 누가, 무엇을, 언제 확인하는지 표시합니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">14</span>프롬프트 C | 병목과 연결된 TO-BE를 그립니다</h2></div>
+  <p class="lead in" style="--d:1">핵심 — AS-IS 단계 ID와 새 단계를 연결하고, <b>담당·도구 · 입력→출력 · 확인·승인 · 예외 경로</b>를 표시.</p>
+  <div class="body row" style="gap:28px">
+   <div class="col in" style="--d:2;width:50%;gap:14px">
+    <div class="row" style="gap:12px">
+     <div class="card hu grow" style="padding:14px 18px;text-align:center"><p style="font-size:21px;color:var(--hu)"><b>검증된 AS-IS</b></p></div>
+     <div class="card hu grow" style="padding:14px 18px;text-align:center"><p style="font-size:21px;color:var(--hu)"><b>병목 근거</b></p></div>
+     <div class="card hu grow" style="padding:14px 18px;text-align:center"><p style="font-size:21px;color:var(--hu)"><b>선택한 개선 방향</b></p></div>
+    </div>
+    <div class="prompt grow">
+     <div class="ph"><span>프롬프트 C · TO-BE 초안</span><span class="hint">직접 수정 후 복사</span></div>
+     <textarea data-key="pC" spellcheck="false">아래 검증된 AS-IS, 채택한 병목 근거, 선택한 개선 방향을 바탕으로 TO-BE 초안을 작성해 줘. ‘연결된 AS-IS ID / 새 단계 / 변경 방식 / 담당·도구 / 입력 → 출력 / 사람이 확인할 항목과 시점 / 실패·예외 발생 시 처리’ 표로 정리해 줘. 제거·통합한 단계의 이유를 표시하고, 단계마다 표준화·규칙 자동화·AI 보조·사람 수행 중 해당하는 방식을 적어 줘. 최종 승인과 그 책임을 명시해. 확인되지 않은 시스템 연동, 데이터 권한, 절감 수치는 가정으로 확정하지 말고 ‘선결 조건’에 따로 적어 줘.
+
+[검증된 AS-IS]
+
+[병목과 근거]
+
+[선택한 개선 방향 및 제약]
+</textarea>
+     <div class="pf"><button class="btn pri" data-copy>복사</button><button class="btn sec" data-reset>원래대로</button><span class="msg">복사했습니다</span></div>
+    </div>
+   </div>
+   <div class="col grow in" style="--d:3;gap:14px">
+    <span class="k">손잡이를 끌어 비교 — AS-IS ⇆ TO-BE (가상)</span>
+    <div class="ba" data-ba style="flex:1">
+     <div class="pane before">
+      <span class="lab" style="left:16px;background:#EEF2F6;color:var(--sub)">AS-IS</span>
+      <div style="margin-top:56px;display:flex;flex-direction:column;gap:14px;font-size:23px">
+       <div class="card" style="padding:14px 18px"><b>A01</b> 메일로 부서 파일 수합</div>
+       <div class="card" style="padding:14px 18px;border:2px solid var(--accent)"><b>A02</b> 양식 맞추고 수작업 대조</div>
+       <div class="card" style="padding:14px 18px"><b>A03</b> 회신 → A02 재대조</div>
+       <div class="card" style="padding:14px 18px"><b>A04</b> 승인 요청</div>
+      </div>
+     </div>
+     <div class="pane after" style="background:#FFF8F3">
+      <span class="lab" style="right:16px;background:var(--accent);color:#fff">TO-BE</span>
+      <div style="margin-top:56px;display:flex;flex-direction:column;gap:14px;font-size:23px;text-align:right">
+       <div class="card" style="padding:14px 18px"><b>A01</b> 공통 양식으로 제출 <span class="flag diff">표준화</span></div>
+       <div class="card" style="padding:14px 18px"><b>A02</b> 규칙 검사 → 예외 목록 <span class="flag diff">규칙</span></div>
+       <div class="card ai" style="padding:14px 18px"><b>A03</b> 확인 요청문 초안 <span class="flag dup">AI 보조</span></div>
+       <div class="card hu" style="padding:14px 18px"><b>A04</b> 담당자 검토·최종 승인 <span class="flag ok">사람</span></div>
+      </div>
+     </div>
+     <div class="handle"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 15 ================= -->
+<section class="slide" data-no="15" data-mod="3. AI로 병목 분석과 TO-BE 설계" data-title="정상·예외·실패를 TO-BE에 통과시켜 보세요" data-min="20" data-practice="1" data-virtual="1"
+ data-note="오른쪽 버튼(정상·예외·실패)을 누르면 가상 TO-BE를 따라 처리 경로가 표시됩니다. 조별 업무에서도 세 상황을 말로 한 번씩 따라가게 합니다. 누락된 처리 경로는 AI에 수정 요청한 뒤 조원이 다시 확인하고, 남은 이슈는 파일럿 조건으로 기록합니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">15</span>정상·예외·실패를 TO-BE에 통과시켜 보세요</h2></div>
+  <div class="body col" style="gap:20px;margin-top:10px">
+   <div class="card in" style="--d:1;padding:18px 26px;position:relative">
+    <div class="row" style="gap:12px;position:absolute;right:26px;top:18px;z-index:2">
+     <button class="btn ok scbtn" data-sc="normal">▶ 정상</button><button class="btn pri scbtn" data-sc="exception">▶ 예외</button><button class="btn navy scbtn" data-sc="fail">▶ 실패</button>
+    </div>
+    <svg viewBox="0 0 1700 340" width="100%" height="330" id="runner" aria-label="TO-BE 처리 경로 시뮬레이션">
+     <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#94A3B8"/></marker></defs>
+     <path fill="none" class="edge" data-e="in-chk" d="M250 150 H370" stroke="#94A3B8" stroke-width="3" marker-end="url(#ah)"/>
+     <path fill="none" class="edge" data-e="chk-rev" d="M610 150 H1090" stroke="#94A3B8" stroke-width="3" marker-end="url(#ah)"/>
+     <path fill="none" class="edge" data-e="rev-ok" d="M1330 150 H1450" stroke="#94A3B8" stroke-width="3" marker-end="url(#ah)"/>
+     <path fill="none" class="edge" data-e="chk-ask" d="M490 190 V250 H730" stroke="#94A3B8" stroke-width="3" marker-end="url(#ah)"/>
+     <path fill="none" class="edge" data-e="ask-chk" d="M730 60 H530 V108" stroke="#94A3B8" stroke-width="3" marker-end="url(#ah)" fill="none"/>
+     <path fill="none" class="edge" data-e="ask-loop" d="M970 250 H1010 V60 H970" stroke="#94A3B8" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+     <path fill="none" class="edge" data-e="chk-stop" d="M560 190 V325 H1210 V294" stroke="#94A3B8" stroke-width="3" fill="none" marker-end="url(#ah)"/>
+     <g class="node" data-n="in"><rect x="10" y="110" width="240" height="80" rx="16" fill="#fff" stroke="#CBD5E1" stroke-width="2"/><text x="130" y="158" text-anchor="middle" font-size="25" font-weight="700" fill="#172B3A">부서 파일 제출</text></g>
+     <g class="node" data-n="chk"><rect x="370" y="110" width="240" height="80" rx="16" fill="#fff" stroke="#CBD5E1" stroke-width="2"/><text x="490" y="158" text-anchor="middle" font-size="25" font-weight="700" fill="#172B3A">규칙 검사</text></g>
+     <g class="node" data-n="ask"><rect x="730" y="210" width="240" height="80" rx="16" fill="#fff" stroke="#CBD5E1" stroke-width="2"/><text x="850" y="258" text-anchor="middle" font-size="24" font-weight="700" fill="#172B3A">부서 확인·회신</text></g>
+     <g class="node" data-n="re"><rect x="730" y="20" width="240" height="80" rx="16" fill="#fff" stroke="#CBD5E1" stroke-width="2"/><text x="850" y="68" text-anchor="middle" font-size="24" font-weight="700" fill="#172B3A">회신 후 재대조</text></g>
+     <g class="node" data-n="stop"><rect x="1090" y="210" width="240" height="80" rx="16" fill="#fff" stroke="#CBD5E1" stroke-width="2"/><text x="1210" y="258" text-anchor="middle" font-size="24" font-weight="700" fill="#172B3A">담당자 반송·정지</text></g>
+     <g class="node" data-n="rev"><rect x="1090" y="110" width="240" height="80" rx="16" fill="#fff" stroke="#CBD5E1" stroke-width="2"/><text x="1210" y="158" text-anchor="middle" font-size="25" font-weight="700" fill="#172B3A">담당자 검토</text></g>
+     <g class="node" data-n="ok"><rect x="1450" y="110" width="240" height="80" rx="16" fill="#fff" stroke="#CBD5E1" stroke-width="2"/><text x="1570" y="158" text-anchor="middle" font-size="25" font-weight="700" fill="#172B3A">최종 승인</text></g>
+    </svg>
+    <div id="runmsg" style="font-size:22px;color:var(--sub);min-height:30px">버튼을 눌러 상황별 처리 경로를 따라가 보세요.</div>
+   </div>
+   <table class="t in" style="--d:2;font-size:24px">
+    <thead><tr><th style="width:150px">상황</th><th>기대 처리</th><th>실제로 따져볼 질문</th></tr></thead>
+    <tbody>
+     <tr><td><span class="tag ok">정상</span></td><td>누락·불일치가 없으면 담당자 검토로 넘긴다</td><td><b>최종 승인이 있는가?</b></td></tr>
+     <tr><td><span class="tag ora">예외</span></td><td>담당 부서에 확인하고, 회신 후 다시 대조한다</td><td><b>누가 원본을 대조하는가?</b> 요청문이 원인을 지어내지 않는가?</td></tr>
+     <tr><td><span class="tag navy">실패</span></td><td>형식 오류·권한 문제 시 담당자에게 돌리고 다음 단계를 멈춘다</td><td><b>검증되지 않은 자료가 넘어가는가?</b></td></tr>
+    </tbody>
+   </table>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 16 ================= -->
+<section class="slide" data-no="16" data-mod="3. AI로 병목 분석과 TO-BE 설계" data-title="효과는 어떻게 확인할까요?" data-min="10" data-practice="1" data-virtual="1"
+ data-note="개선 후 작업에는 사람의 검토와 재작업 시간을 포함합니다. 숫자 칸을 직접 바꾸면 차트와 결과가 함께 바뀝니다. 숫자가 없으면 추정치를 만들기보다 '측정 예정'으로 두고 측정 자료와 담당을 적게 합니다. 재투자 예시: 반복 예외의 원인 분석.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">16</span>효과는 어떻게 확인할까요?</h2></div>
+  <div class="card dark in" style="--d:1;padding:22px 34px;margin:8px 0 22px;display:flex;align-items:center;gap:20px">
+   <span class="tag ora" style="font-size:22px">계산식</span>
+   <span style="font-size:32px;font-weight:700">월 예상 직접 절감시간 = <span style="color:#FFB98E">(현재 1회 작업분 − 개선 후 1회 작업분) × 월 건수 ÷ 60</span></span>
+  </div>
+  <div class="body row" style="gap:28px">
+   <div class="card in" style="--d:2;width:50%;display:flex;flex-direction:column;padding:22px 28px">
+    <div class="row" style="gap:14px;align-items:center;flex-wrap:wrap;font-size:22px">
+     <span class="vchip">가상 예시 · 직접 바꿔 보세요</span>
+     <label>현재 <input type="number" id="c16a" value="120" min="0" style="width:90px;font-size:22px;padding:4px 8px;border:2px solid var(--line);border-radius:8px"> 분</label>
+     <label>개선 후 <input type="number" id="c16b" value="60" min="0" style="width:90px;font-size:22px;padding:4px 8px;border:2px solid var(--line);border-radius:8px"> 분</label>
+     <label>월 <input type="number" id="c16c" value="1" min="0" style="width:70px;font-size:22px;padding:4px 8px;border:2px solid var(--line);border-radius:8px"> 건</label>
+    </div>
+    <div style="flex:1;position:relative;min-height:0;margin-top:12px"><canvas id="ch16"></canvas></div>
+   </div>
+   <div class="col grow" style="gap:18px">
+    <div class="card orange tilt in" style="--d:3;padding:24px 30px"><span class="k" style="color:#FFE0CC">계산 결과</span><div style="font-size:30px;font-weight:700" id="f16">(120 − 60) × 1 ÷ 60 =</div><div style="font-size:84px;font-weight:900;line-height:1.05">월 <span id="r16">1</span>시간</div></div>
+    <div class="row in" style="--d:4;gap:14px">
+     <div class="card tilt grow" style="padding:18px 20px"><div class="ico o" style="width:48px;height:48px;margin-bottom:8px"><svg><use href="#i-hand"/></svg></div><h3 style="font-size:25px;margin:0">직접 작업</h3><p style="font-size:19px">1회 작업분</p></div>
+     <div class="card tilt grow" style="padding:18px 20px"><div class="ico n" style="width:48px;height:48px;margin-bottom:8px"><svg><use href="#i-clock"/></svg></div><h3 style="font-size:25px;margin:0">마감 경과</h3><p style="font-size:19px">시작→종료</p></div>
+     <div class="card tilt grow" style="padding:18px 20px"><div class="ico y" style="width:48px;height:48px;margin-bottom:8px"><svg><use href="#i-loop"/></svg></div><h3 style="font-size:25px;margin:0">오류·재요청</h3><p style="font-size:19px">건수</p></div>
+    </div>
+    <div class="card in" style="--d:5;padding:20px 26px"><span class="k">확보 시간을 어디에 쓸까?</span><span class="edit" contenteditable data-save="s16" data-ph="예) 반복 예외의 원인 분석" style="font-size:26px"></span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 17 ================= -->
+<section class="slide" data-no="17" data-mod="3. AI로 병목 분석과 TO-BE 설계" data-title="프롬프트 D | 조에서 확인한 내용을 한 장에 담습니다" data-min="5" data-practice="1"
+ data-note="부록 D에 검증 기록과 수정한 TO-BE를 넣습니다. AI가 요약하면서 새 사실·수치를 추가하지 않았는지 확인하고 조별 결과물을 저장합니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">17</span>프롬프트 D | 조에서 확인한 내용을 한 장에 담습니다</h2></div>
+  <div class="body row" style="gap:28px;margin-top:14px">
+   <div class="col in" style="--d:1;width:46%;gap:14px">
+    <span class="k">발표 양식</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+     <div class="card tilt" style="height:150px"><span class="k">01</span><h3 style="font-size:28px">업무 범위</h3></div>
+     <div class="card tilt" style="height:150px"><span class="k">02</span><h3 style="font-size:28px">병목과 근거</h3></div>
+     <div class="card tilt" style="height:150px"><span class="k">03</span><h3 style="font-size:28px">TO-BE와 사람의 확인</h3></div>
+     <div class="card tilt" style="height:150px"><span class="k">04</span><h3 style="font-size:28px">측정과 재투자</h3></div>
+    </div>
+    <div class="card hold" style="padding:14px 22px"><p style="font-size:22px;color:var(--hold)"><b>미확인 조건</b> — </p></div>
+    <div class="card" style="padding:14px 22px"><p style="font-size:22px"><b style="color:var(--ink)">후속 담당과 확인 시점</b> — </p></div>
+   </div>
+   <div class="prompt grow in" style="--d:2">
+    <div class="ph"><span>프롬프트 D · 한 장 요약</span><span class="hint">직접 수정 후 복사</span></div>
+    <textarea data-key="pD" spellcheck="false">조에서 검증한 내용만 사용해 ‘업무 범위 / AS-IS 핵심 단계 / 병목과 근거 / TO-BE 변경 / 사람의 검토·예외 처리 / 효과 측정과 재투자 / 담당자와 다음 검증’ 순으로 한 장 요약을 만들어 줘. 아직 검증하지 않은 조건은 끝에 별도로 표시해 줘.
+
+[검증 기록과 수정한 TO-BE]
+
+[측정 계획]
+</textarea>
+    <div class="pf"><button class="btn pri" data-copy>복사</button><button class="btn sec" data-reset>원래대로</button><span class="msg">복사했습니다</span></div>
+   </div>
+  </div>
+  <div class="nextbar in" style="--d:4"><span class="tag ora">발표 포인트</span><span class="nt"><b>AI 초안에서 수정하거나 보류한 항목 1개</b>를 발표하세요.</span></div>
+ </div>
+</section>
+
+<!-- ================= 18 ================= -->
+<section class="slide" data-no="18" data-mod="4. 도구 선택과 시연" data-title="Project·Skills·웹앱 중 무엇을 쓸까요?" data-min="10"
+ data-note="같은 근태 마감 TO-BE를 대상으로 구현 방식을 비교합니다. 각 도구의 입력·처리·출력을 짚고, 규칙 판정(코드에 고정한 기준)과 AI 문서 초안의 역할을 구분합니다.">
+ <div class="orb" style="width:130px;height:130px;right:130px;top:140px" data-depth="20"></div>
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">18</span>Project·Skills·웹앱 중 무엇을 쓸까요?</h2></div>
+  <p class="lead in" style="--d:1">같은 개선안도 <b>무엇을 반복해서 쓰는지</b>에 따라 도구가 달라집니다.</p>
+  <div class="body row" style="gap:28px">
+   <div class="card tilt grow in" style="--d:2;display:flex;flex-direction:column;padding:34px">
+    <svg viewBox="0 0 200 120" height="140" aria-hidden="true"><rect x="30" y="20" width="140" height="90" rx="12" fill="#E8EFFD"/><path d="M30 38h55l10-14h75" stroke="#184A8B" stroke-width="4" fill="none"/><rect x="50" y="52" width="70" height="8" rx="4" fill="#184A8B" opacity=".5"/><rect x="50" y="68" width="100" height="8" rx="4" fill="#184A8B" opacity=".3"/><rect x="50" y="84" width="85" height="8" rx="4" fill="#184A8B" opacity=".3"/><circle cx="160" cy="95" r="20" fill="#F26B1D"/><path d="M152 95l6 6 10-11" stroke="#fff" stroke-width="4" fill="none"/></svg>
+    <h3 style="font-size:40px;margin-top:16px">Project</h3>
+    <p style="font-size:26px">지침과 예시를 모아 <b style="color:var(--ink)">반복 사용</b></p>
+    <div class="col" style="gap:8px;margin-top:22px;font-size:22px"><div class="row" style="gap:10px;align-items:center"><span class="tag gray" style="font-size:18px;width:70px;justify-content:center">입력</span>지침·예시 문서</div><div class="row" style="gap:10px;align-items:center"><span class="tag navy" style="font-size:18px;width:70px;justify-content:center">처리</span>맥락 참고해 작성</div><div class="row" style="gap:10px;align-items:center"><span class="tag ora" style="font-size:18px;width:70px;justify-content:center">출력</span>요청문 초안</div></div>
+    <div style="margin-top:auto;padding-top:20px;border-top:1px dashed var(--line)"><span class="k">근태 마감 예시</span><p style="font-size:23px">가상 마감 지침을 참고해 확인 요청문 초안 작성</p></div>
+   </div>
+   <div class="card tilt grow in" style="--d:3;display:flex;flex-direction:column;padding:34px">
+    <svg viewBox="0 0 200 120" height="140" aria-hidden="true"><g font-size="16" font-weight="700" fill="#fff"><rect x="20" y="15" width="160" height="22" rx="11" fill="#1F2A40"/><rect x="20" y="45" width="160" height="22" rx="11" fill="#33415C"/><rect x="20" y="75" width="160" height="22" rx="11" fill="#475569"/></g><circle cx="35" cy="26" r="6" fill="#F26B1D"/><circle cx="35" cy="56" r="6" fill="#F26B1D"/><circle cx="35" cy="86" r="6" fill="#F26B1D"/><rect x="50" y="22" width="90" height="8" rx="4" fill="#fff" opacity=".7"/><rect x="50" y="52" width="110" height="8" rx="4" fill="#fff" opacity=".7"/><rect x="50" y="82" width="70" height="8" rx="4" fill="#fff" opacity=".7"/></svg>
+    <h3 style="font-size:40px;margin-top:16px">Skills</h3>
+    <p style="font-size:26px">작업 순서와 품질 기준을 <b style="color:var(--ink)">반복 적용</b></p>
+    <div class="col" style="gap:8px;margin-top:22px;font-size:22px"><div class="row" style="gap:10px;align-items:center"><span class="tag gray" style="font-size:18px;width:70px;justify-content:center">입력</span>예외 목록</div><div class="row" style="gap:10px;align-items:center"><span class="tag navy" style="font-size:18px;width:70px;justify-content:center">처리</span>정해진 순서·기준 적용</div><div class="row" style="gap:10px;align-items:center"><span class="tag ora" style="font-size:18px;width:70px;justify-content:center">출력</span>점검된 요청문</div></div>
+    <div style="margin-top:auto;padding-top:20px;border-top:1px dashed var(--line)"><span class="k">근태 마감 예시</span><p style="font-size:23px">예외 목록 확인 → 필수 항목 점검 → 요청문 작성 → 담당자 확인</p></div>
+   </div>
+   <div class="card tilt grow in" style="--d:4;display:flex;flex-direction:column;padding:34px">
+    <svg viewBox="0 0 200 120" height="140" aria-hidden="true"><rect x="20" y="10" width="160" height="104" rx="12" fill="#fff" stroke="#1F2A40" stroke-width="4"/><path d="M20 30h160" stroke="#1F2A40" stroke-width="4"/><circle cx="34" cy="20" r="4" fill="#F26B1D"/><circle cx="48" cy="20" r="4" fill="#F6C344"/><g><rect x="34" y="42" width="132" height="14" rx="3" fill="#DDF4EE"/><rect x="34" y="62" width="132" height="14" rx="3" fill="#FDE4E1"/><rect x="34" y="82" width="132" height="14" rx="3" fill="#FFE9DB"/></g><text x="150" y="73" font-size="13" font-weight="700" fill="#9A2A1B">누락</text><text x="140" y="93" font-size="13" font-weight="700" fill="#A4400B">불일치</text></svg>
+    <h3 style="font-size:40px;margin-top:16px">웹앱</h3>
+    <p style="font-size:26px">정해진 화면에서 정해진 <b style="color:var(--ink)">규칙으로 검사</b></p>
+    <div class="col" style="gap:8px;margin-top:22px;font-size:22px"><div class="row" style="gap:10px;align-items:center"><span class="tag gray" style="font-size:18px;width:70px;justify-content:center">입력</span>가상 CSV</div><div class="row" style="gap:10px;align-items:center"><span class="tag navy" style="font-size:18px;width:70px;justify-content:center">처리</span>코드의 규칙으로 판정</div><div class="row" style="gap:10px;align-items:center"><span class="tag ora" style="font-size:18px;width:70px;justify-content:center">출력</span>예외 목록</div></div>
+    <div style="margin-top:auto;padding-top:20px;border-top:1px dashed var(--line)"><span class="k">근태 마감 예시</span><p style="font-size:23px">가상 CSV를 넣어 누락·중복·차이 목록 생성</p></div>
+   </div>
+  </div>
+  <div class="nextbar in" style="--d:5"><svg width="30" height="30" style="color:#FFB98E"><use href="#i-bulb"/></svg><span>규칙 판정은 <b>코드에 고정한 기준</b>으로, 문서 초안은 <b>AI</b>로 — 최종 확인은 담당자</span></div>
+ </div>
+</section>
+
+<!-- ================= 19 ================= -->
+<section class="slide" data-no="19" data-mod="4. 도구 선택과 시연" data-title="시연 | 가상 근태 파일의 예외를 찾아 요청문으로" data-min="15" data-virtual="1" data-steps="1"
+ data-note="입력 확인 3분 → 규칙 변경 시연 5분 → 테스트 4분 → 요청문 검토 3분. 먼저 오른쪽 기대 결과를 보여주고, 클릭(또는 '검사 실행')으로 실제 출력을 공개해 차트에서 기대값과 비교합니다. 숫자 오류·누락 행은 차이를 계산하지 않습니다. 요청문은 담당자가 원본 값과 수신 범위를 확인하는 데서 마칩니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">19</span>시연 | 가상 근태 파일의 예외를 찾아 요청문으로</h2></div>
+  <div class="row in" style="--d:1;gap:14px;margin:4px 0 16px 31px;font-size:24px;color:var(--sub);align-items:center">
+   <span class="tag ora">① 가상 CSV를 넣는다</span><svg width="26" height="26" style="color:var(--accent)"><use href="#i-arrow"/></svg>
+   <span class="tag navy">② 결과를 기대값과 비교한다</span><svg width="26" height="26" style="color:var(--accent)"><use href="#i-arrow"/></svg>
+   <span class="tag ai">③ 검증한 예외로 요청문 초안</span>
+  </div>
+  <div class="body row" style="gap:26px">
+   <div class="app in" style="--d:2;width:60%">
+    <div class="bar"><i></i><i></i><i></i><span style="margin-left:10px">근태 예외 검사기 (교육용 시연)</span>
+     <label style="margin-left:auto;display:flex;align-items:center;gap:8px">허용 차이 <select id="tol" style="font-size:18px;padding:2px 6px;border-radius:6px"><option value="0">0분</option><option value="30">30분 미만 허용</option></select></label>
+     <button class="btn pri" id="run19" style="padding:6px 16px;font-size:18px">검사 실행</button><button class="btn sec" id="reset19" style="padding:6px 14px;font-size:18px">초기화</button></div>
+    <textarea id="csv19" spellcheck="false">id,dept,base,submit
+H001,A,480,480
+H002,A,480,
+H003,B,480,480
+H003,B,480,480
+H004,C,480,450
+H005,C,480,오류</textarea>
+    <div style="overflow:auto;flex:1;min-height:0">
+     <table class="t" id="out19" style="border-radius:0;box-shadow:none"><thead><tr><th>행</th><th>ID</th><th>부서</th><th>기준</th><th>제출</th><th>차이</th><th>검사 결과</th></tr></thead><tbody><tr><td colspan="7" style="color:var(--mute);font-size:20px">‘검사 실행’을 누르면 결과가 표시됩니다.</td></tr></tbody></table>
+    </div>
+    <div id="req19" style="display:none;background:var(--ai-bg);padding:14px 18px;font-size:21px;color:var(--ai);border-top:1px solid #D3E0FA"></div>
+   </div>
+   <div class="col grow in" style="--d:3;gap:14px">
+    <div class="tabs19 row" style="gap:8px">
+     <button class="btn navy t19 on" data-t="chart">결과 차트</button>
+     <button class="btn sec t19" data-t="make">웹앱 제작 지시문</button>
+     <button class="btn sec t19" data-t="req">요청문 프롬프트</button>
+    </div>
+    <div class="card tp19" data-p="chart" style="padding:18px 22px;flex:1;display:flex;flex-direction:column;min-height:0">
+     <span class="k">기대 결과 vs 실제 출력 (행 수)</span>
+     <div style="flex:1;position:relative;min-height:0"><canvas id="ch19"></canvas></div>
+    </div>
+    <div class="prompt tp19" data-p="make" style="flex:1;display:none">
+     <div class="ph"><span>웹앱 제작 지시문</span><span class="hint">수업 전 시연 앱 준비용</span></div>
+     <textarea data-key="p19m" spellcheck="false" style="font-size:20px">월 근태 마감 사전 검증용 웹앱을 만들어 줘. 브라우저에서 가상 CSV를 읽고, 필수값 누락·숫자 형식 오류·중복 ID·기준 근태분과 제출 근태분의 불일치를 검사해 줘. 결과는 행 번호, 익명 ID, 예외 유형, 차이(분)로 표시해. 비교에 필요한 값이 누락됐거나 숫자 형식이 잘못된 행은 차이를 비워 둬. 검사 규칙은 코드로 고정하고, 파일은 브라우저에서만 처리해. 정상·누락·중복·불일치·형식 오류를 각각 확인할 수 있는 가상 CSV 예시와 기대 결과도 제공해 줘.</textarea>
+     <div class="pf"><button class="btn pri" data-copy>복사</button><button class="btn sec" data-reset>원래대로</button><span class="msg">복사했습니다</span></div>
+    </div>
+    <div class="prompt tp19" data-p="req" style="flex:1;display:none">
+     <div class="ph"><span>확인 요청문 초안 프롬프트</span><span class="hint">검증된 예외만 넣기</span></div>
+     <textarea data-key="p19r" spellcheck="false" style="font-size:20px">검증된 가상 예외 목록을 바탕으로 담당 부서가 사실관계를 확인할 수 있는 요청문 초안을 작성해 줘. 각 건에 익명 ID, 확인이 필요한 값, 확인 질문을 넣어 줘. 원인이 확인되지 않으면 ‘확인 필요’로 표시하고 임의로 보완하지 마. 마지막에 담당자가 발송 전에 확인할 항목을 정리해 줘.
+
+[검증된 예외 목록]
+</textarea>
+     <div class="pf"><button class="btn pri" data-copy>복사</button><button class="btn sec" data-reset>원래대로</button><button class="btn sec" id="ins19">검사 결과 넣기</button><span class="msg">복사했습니다</span></div>
+    </div>
+    <div class="card" style="padding:16px 22px">
+     <span class="k">기대 결과 — 고정</span>
+     <div class="row" style="gap:8px;flex-wrap:wrap"><span class="flag ok">정상 H001</span><span class="flag miss">누락 H002</span><span class="flag dup">중복 H003×2</span><span class="flag diff">불일치 H004 −30</span><span class="flag err">숫자 오류 H005</span></div>
+    </div>
+   </div>
+  </div>
+  <div class="clickhint" style="left:96px;right:auto;bottom:100px;z-index:5">클릭하거나 → 키로 실제 출력 공개 ▸</div>
+ </div>
+</section>
+
+<!-- ================= 20 ================= -->
+<section class="slide" data-no="20" data-mod="4. 도구 선택과 시연" data-title="우리 조의 첫 번째 테스트를 고르세요" data-min="10" data-practice="1"
+ data-note="한 번에 시험할 수 있는 크기로 좁힙니다. 데이터 권한과 승인 경로가 미확인인 경우 가상 입력으로 검증할 수 있는 항목만 정합니다. 각 칸을 직접 클릭해 입력할 수 있습니다.">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">20</span>우리 조의 첫 번째 테스트를 고르세요</h2></div>
+  <p class="lead in" style="--d:1">어떤 입력으로, <b>어떤 한 가지 출력</b>을 만들고, 무엇과 대조해 통과 여부를 정할까?</p>
+  <div class="body col" style="gap:26px">
+   <div class="row in" style="--d:2;gap:16px;align-items:stretch">
+    <div class="card tilt grow" style="padding:30px 26px;min-height:330px"><div class="ico o" style="margin-bottom:22px"><svg><use href="#i-flag"/></svg></div><h3 style="font-size:32px">TO-BE 한 단계</h3><span class="edit" contenteditable data-save="s20a" data-ph="예) A02 규칙 검사" style="font-size:27px"></span></div>
+    <div class="card tilt grow" style="padding:30px 26px;min-height:330px"><div class="ico o" style="margin-bottom:22px"><svg><use href="#i-app"/></svg></div><h3 style="font-size:28px">도구 1개</h3><span class="edit" contenteditable data-save="s20b" data-ph="예) 웹앱" style="font-size:27px"></span></div>
+    <div class="card tilt grow" style="padding:30px 26px;min-height:330px"><div class="ico o" style="margin-bottom:22px"><svg><use href="#i-file"/></svg></div><h3 style="font-size:28px">입력 1종</h3><span class="edit" contenteditable data-save="s20c" data-ph="예) 가상 CSV" style="font-size:27px"></span></div>
+    <div class="card tilt grow" style="padding:30px 26px;min-height:330px"><div class="ico o" style="margin-bottom:22px"><svg><use href="#i-chart"/></svg></div><h3 style="font-size:28px">기대 출력 1개</h3><span class="edit" contenteditable data-save="s20d" data-ph="예) 차이 행 목록" style="font-size:27px"></span></div>
+    <div class="card tilt grow orange" style="padding:30px 26px;min-height:330px"><div class="ico" style="margin-bottom:22px;background:#fff;color:var(--accent)"><svg><use href="#i-target"/></svg></div><h3 style="font-size:28px">통과 기준 1개</h3><span class="edit" contenteditable data-save="s20e" data-ph="예) 차이 30분 행 1건 표시" style="font-size:27px;color:#fff;border-color:#FFC7A4"></span></div>
+   </div>
+   <div class="card ai in" style="--d:3;display:flex;gap:20px;align-items:center;padding:24px 32px">
+    <span class="tag navy" style="font-size:22px">예</span>
+    <p style="font-size:30px;color:var(--ai);font-weight:700">가상 CSV → 웹앱 → <span class="mk">차이 30분인 행 1건</span>을 표시</p>
+   </div>
+   <div class="card hold in" style="--d:4;padding:20px 30px"><p style="font-size:24px;color:var(--hold)">접근 권한이 미확인이면 → <b>가상 입력으로 검증할 수 있는 항목</b>만 정합니다.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 21 ================= -->
+<section class="slide" data-no="21" data-mod="5. 발표와 마무리" data-title="조별 발표 | AI의 제안 중 무엇을 바꿨나요?" data-min="21" data-practice="1"
+ data-note="조당 발표 5분·피드백 2분. 타이머로 시간을 관리합니다. 조마다 근거, 예외 책임, 측정 기준 중 보완이 가장 필요한 한 가지를 묻습니다: '병목의 근거가 무엇인가?' / '예외 발생 시 누가 무엇을 확인하는가?' / '어떤 값이 바뀌면 개선됐다고 볼 수 있는가?'">
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">21</span>조별 발표 | AI의 제안 중 무엇을 바꿨나요?</h2></div>
+  <div class="body row" style="gap:28px;margin-top:14px">
+   <div class="col" style="width:62%;gap:20px">
+    <div class="flow in" style="--d:1">
+     <div class="card step tilt" style="padding:26px 22px;min-height:150px"><span class="sn">1</span><h3 style="font-size:27px">병목과 근거</h3></div>
+     <div class="arr" style="width:44px"><svg style="width:32px"><use href="#i-arrow"/></svg></div>
+     <div class="card step tilt ai" style="padding:26px 22px;min-height:150px"><span class="sn">2</span><h3 style="font-size:27px">AI 초안에서 바꾼 내용</h3></div>
+     <div class="arr" style="width:44px"><svg style="width:32px"><use href="#i-arrow"/></svg></div>
+     <div class="card step tilt hu" style="padding:26px 22px;min-height:150px"><span class="sn">3</span><h3 style="font-size:27px">채택한 TO-BE</h3></div>
+     <div class="arr" style="width:44px"><svg style="width:32px"><use href="#i-arrow"/></svg></div>
+     <div class="card step tilt" style="padding:26px 22px;min-height:150px"><span class="sn">4</span><h3 style="font-size:27px">확인할 지표</h3></div>
+    </div>
+    <div class="card in" style="--d:2;padding:22px 28px;flex:1">
+     <span class="k">강사 질문 — 조마다 한 가지</span>
+     <div class="col" style="gap:30px;font-size:30px;margin-top:14px">
+      <div style="display:flex;gap:14px;align-items:center"><div class="ico o round" style="width:60px;height:60px"><svg style="width:26px"><use href="#i-search"/></svg></div>병목의 근거가 무엇인가?</div>
+      <div style="display:flex;gap:14px;align-items:center"><div class="ico n round" style="width:60px;height:60px"><svg style="width:26px"><use href="#i-ucheck"/></svg></div>예외 발생 시 누가 무엇을 확인하는가?</div>
+      <div style="display:flex;gap:14px;align-items:center"><div class="ico g round" style="width:60px;height:60px"><svg style="width:26px"><use href="#i-chart"/></svg></div>어떤 값이 바뀌면 개선됐다고 볼 수 있는가?</div>
+     </div>
+    </div>
+   </div>
+   <div class="col grow in" style="--d:3;gap:16px">
+    <div class="card" style="text-align:center;padding:22px">
+     <span class="k">발표 타이머</span>
+     <div class="timer" id="tm">05:00</div>
+     <div class="row" style="gap:10px;justify-content:center;margin-top:8px">
+      <button class="btn pri" data-tm="300">발표 5분</button><button class="btn navy" data-tm="120">피드백 2분</button><button class="btn sec" id="tmgo">시작/정지</button>
+     </div>
+    </div>
+    <div class="card" style="flex:1;padding:16px 20px;display:flex;flex-direction:column;min-height:0">
+     <span class="k">21분 배분 — 조당 발표 5분 · 피드백 2분</span>
+     <div style="flex:1;position:relative;min-height:0"><canvas id="ch21"></canvas></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= 22 ================= -->
+<section class="slide" data-no="22" data-mod="5. 발표와 마무리" data-title="다음 검증을 누가, 언제, 무엇으로 할까요?" data-min="4"
+ data-note="현장에서 파일럿 후보 1~2건을 기록합니다. 담당이나 시점을 합의하지 못하면 '추후 지정'으로 기록합니다. 다음 검증은 처리시간, 오류 또는 재요청 건수를 기준으로 정합니다. 마무리: '오늘의 결과는 근거를 확인한 개선안과, 아직 확인해야 할 조건입니다. 후속 파일럿에서는 실제 처리시간과 오류를 비교합니다.'">
+ <div class="orb" style="width:160px;height:160px;right:130px;top:130px" data-depth="22"></div>
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2><span class="no">22</span>다음 검증을 누가, 언제, 무엇으로 할까요?</h2></div>
+  <p class="lead in" style="--d:1">팀 차원에서 먼저 확인할 <b>파일럿 후보 1~2건</b>을 기록합니다. 정하지 못한 칸은 ‘추후 지정’.</p>
+  <div class="body col" style="gap:26px">
+   <table class="t in" style="--d:2;font-size:26px">
+    <thead><tr><th style="width:24%">파일럿 후보</th><th>담당</th><th>확인 시점</th><th>필요한 자료</th><th>통과 기준</th></tr></thead>
+    <tbody>
+     <tr style="height:96px"><td><span class="edit" contenteditable data-save="s22a" data-ph="후보 1"></span></td><td><span class="edit" contenteditable data-save="s22b" data-ph="추후 지정"></span></td><td><span class="edit" contenteditable data-save="s22c" data-ph="추후 지정"></span></td><td><span class="edit" contenteditable data-save="s22d" data-ph="예) 근태 파일 2개월분"></span></td><td><span class="edit" contenteditable data-save="s22e" data-ph="예) 처리시간·재요청 건수"></span></td></tr>
+     <tr style="height:96px"><td><span class="edit" contenteditable data-save="s22f" data-ph="후보 2"></span></td><td><span class="edit" contenteditable data-save="s22g" data-ph="추후 지정"></span></td><td><span class="edit" contenteditable data-save="s22h" data-ph="추후 지정"></span></td><td><span class="edit" contenteditable data-save="s22i" data-ph=""></span></td><td><span class="edit" contenteditable data-save="s22j" data-ph=""></span></td></tr>
+    </tbody>
+   </table>
+   <div class="row in" style="--d:3;gap:24px;height:250px">
+    <div class="card dark grow" style="display:flex;gap:26px;align-items:center;padding:34px 40px">
+     <div class="ico o" style="width:84px;height:84px"><svg style="width:48px;height:48px"><use href="#i-flag"/></svg></div>
+     <div><span class="k" style="color:#FFB98E">오늘의 결과</span><h3 style="font-size:40px;margin:0;color:#fff">검증한 개선안과 남은 확인 조건</h3></div>
+    </div>
+    <div class="card tilt" style="width:470px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px">
+     <img src="assets/logo.png" alt="Data Thinking Lab" style="height:58px">
+     <p style="font-size:24px">감사합니다 · datathinkinglab.com</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+
+<!-- ================= WRAP UP ================= -->
+<section class="slide" data-no="" data-label="WRAP UP" data-mod="정리" data-title="Wrap Up — 오늘 우리가 확인한 것"
+ data-note="오늘의 핵심을 다섯 가지로 정리합니다. 왼쪽 순환 그림으로 'AI가 초안 → 사람이 확인·수정·보류 → 확인한 사실만 다음 프롬프트로 → 측정으로 효과 검증'을 다시 짚고, 22장에서 정한 파일럿 후보를 다음 검증으로 연결합니다.">
+ <div class="orb" style="width:150px;height:150px;right:120px;top:120px" data-depth="22"></div>
+ <div class="content">
+  <div class="ttl in"><div class="bar"></div><h2>Wrap Up | 오늘 우리가 확인한 것</h2></div>
+  <p class="lead in" style="--d:1">AI는 <b>초안과 가설</b>을 빠르게 만들고, 인사팀은 <span class="mk"><b>근거와 책임</b>으로 확정</span>했습니다.</p>
+  <div class="body row" style="gap:30px">
+   <div class="col in" style="--d:2;width:520px;align-items:center;justify-content:center">
+    <svg viewBox="0 0 480 480" width="480" height="480" aria-label="AI 초안과 사람 검증의 순환">
+     <circle cx="240" cy="240" r="170" fill="none" stroke="#FFE9DB" stroke-width="26"/>
+     <path class="svgline auto" style="--len:1070" d="M240 70 A170 170 0 1 1 239 70" fill="none" stroke="#F26B1D" stroke-width="5"/>
+     <circle cx="240" cy="240" r="92" fill="#1F2A40"/>
+     <text x="240" y="230" text-anchor="middle" font-size="26" font-weight="900" fill="#fff">검증한</text>
+     <text x="240" y="266" text-anchor="middle" font-size="26" font-weight="900" fill="#FFB98E">개선안</text>
+     <g font-weight="900" text-anchor="middle">
+      <rect x="160" y="34" width="160" height="72" rx="18" fill="#E8EFFD"/><text x="240" y="66" font-size="21" fill="#184A8B">AI가</text><text x="240" y="92" font-size="21" fill="#184A8B">초안 작성</text>
+      <rect x="326" y="204" width="154" height="72" rx="18" fill="#DDF4EE"/><text x="403" y="236" font-size="21" fill="#075E4E">사람이</text><text x="403" y="262" font-size="20" fill="#075E4E">확인·수정·보류</text>
+      <rect x="150" y="374" width="180" height="72" rx="18" fill="#FFF0CC"/><text x="240" y="406" font-size="21" fill="#7A4A00">확인한 사실만</text><text x="240" y="432" font-size="21" fill="#7A4A00">다음 프롬프트로</text>
+      <rect x="0" y="204" width="140" height="72" rx="18" fill="#FFE9DB"/><text x="70" y="236" font-size="21" fill="#A4400B">측정으로</text><text x="70" y="262" font-size="21" fill="#A4400B">효과 검증</text>
+     </g>
+    </svg>
+   </div>
+   <div class="col grow" style="gap:14px">
+    <div class="card tilt in wrap-i" style="--d:3"><span class="wn">1</span><div><h3>범위부터 정한다</h3><p>시작과 종료, 직접 작업시간과 경과시간을 구분</p></div></div>
+    <div class="card tilt in wrap-i" style="--d:4"><span class="wn">2</span><div><h3>AI 초안은 가설이다</h3><p>매끄러운 문장도 근거가 없으면 ‘확인 필요’ — 확인·수정·보류</p></div></div>
+    <div class="card tilt in wrap-i" style="--d:5"><span class="wn">3</span><div><h3>병목은 근거로 고른다</h3><p>관찰과 원인 가설을 나누고, 확인할 자료를 붙인다</p></div></div>
+    <div class="card tilt in wrap-i" style="--d:6"><span class="wn">4</span><div><h3>TO-BE에는 사람의 확인 지점</h3><p>정상·예외·실패를 통과시키고, 최종 승인과 책임을 명시</p></div></div>
+    <div class="card tilt in wrap-i" style="--d:7"><span class="wn">5</span><div><h3>효과는 측정으로 증명한다</h3><p>판정은 코드, 문장은 AI, 확인과 책임은 사람 — 파일럿에서 처리시간·오류 비교</p></div></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ================= THANK YOU ================= -->
+<section class="slide thanks" data-no="" data-label="THANK YOU" data-mod="감사합니다" data-title="감사합니다 — Data Thinking Lab 연락처"
+ data-note="감사 인사와 함께 후속 문의 경로를 안내합니다. 파일럿 진행 중 질문이나 도구 제작 지원이 필요하면 메일로 연락 달라고 안내합니다.">
+ <div class="orb" style="width:220px;height:220px;right:180px;top:110px" data-depth="26"></div>
+ <div class="orb" style="width:90px;height:90px;left:820px;top:820px" data-depth="34"></div>
+ <div class="orb" style="width:60px;height:60px;right:640px;top:220px" data-depth="40"></div>
+ <div class="content" style="justify-content:center">
+  <div class="row" style="gap:70px;align-items:center">
+   <div class="grow">
+    <img class="in" style="--d:0;height:64px;margin-bottom:46px" src="assets/logo.png" alt="Data Thinking Lab">
+    <h1 class="kin" data-kin style="font-size:120px">감사합니다</h1>
+    <p class="in" style="--d:4;font-size:34px;color:var(--sub);margin-top:22px;line-height:1.5">오늘 만든 개선안이 <b style="color:var(--ink)">파일럿에서 검증</b>되도록<br>Data Thinking Lab이 함께하겠습니다.</p>
+   </div>
+   <div class="col in" style="--d:5;width:760px;gap:18px">
+    <div class="card tilt contact"><div class="ico o"><svg><use href="#i-globe"/></svg></div><div><span class="k">홈페이지</span><a href="https://www.datathinkinglab.com" target="_blank" rel="noopener">www.datathinkinglab.com</a></div></div>
+    <div class="card tilt contact"><div class="ico n"><svg><use href="#i-mail"/></svg></div><div><span class="k">이메일</span><span class="cv mail">lee.seungmook@datathinkinglab.com</span></div></div>
+    <div class="card tilt contact"><div class="ico g"><svg><use href="#i-phone"/></svg></div><div><span class="k">연락처</span><span class="cv">010-9775-7870</span></div></div>
+    <div class="card dark" style="display:flex;gap:20px;align-items:center;padding:22px 30px"><div class="ico" style="background:#fff;color:var(--accent)"><svg><use href="#i-user"/></svg></div><p style="font-size:24px;color:#fff">이승묵 Ph.D · Data Thinking Lab 대표 컨설턴트</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+</div></div>
+
+<div id="tb">
+ <button id="b-toc" title="목차 (O)">목차</button>
+ <button id="b-notes" title="발표자 노트 (N)">노트</button>
+ <button id="b-fs" title="전체 화면 (F)">전체화면</button>
+ <button id="b-pdf" title="인쇄·PDF (P)">PDF</button>
+</div>
+<button id="nav-prev" class="navbtn" title="이전 (←)" aria-label="이전 페이지"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+<button id="nav-next" class="navbtn" title="다음 (→)" aria-label="다음 페이지"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+
+<div id="prog"></div>
+<div id="notes"><h4 id="notes-h">발표자 노트</h4><div id="notes-b"></div></div>
+<div id="ov"><h3>유한양행 인사팀 워크다이어트 — 목차</h3><p class="s">← → 이동 · O 목차 · N 노트 · F 전체 화면 · R 효과 다시 재생 · P 인쇄/PDF</p><div class="grid" id="ov-grid"></div></div>
+<div id="toast"></div>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
